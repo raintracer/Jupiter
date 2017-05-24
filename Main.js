@@ -1,8 +1,9 @@
 // GLOBAL VARIABLES
 let canvas;
+let game;
 
 // GLOBAL CONSTANTS
-const STAGE_WIDTH = 600, STAGE_HEIGHT = 600;
+const STAGE_WIDTH = 800, STAGE_HEIGHT = 800;
 const TILE_WIDTH = 40, TILE_HEIGHT = 40;
 
 // RUNS BEFORE STARTUP
@@ -16,7 +17,7 @@ function setup(){
     canvas = createCanvas(STAGE_WIDTH, STAGE_HEIGHT);
 
     // INITIALIZE THE GAME
-    let game = new Game();
+    game = new Game();
 
 }
 
@@ -24,5 +25,7 @@ function setup(){
 function draw(){
 
     background(0);
+    game.scene.tilemap.draw();
+    noLoop()
 
 }
