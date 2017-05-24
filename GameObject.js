@@ -61,6 +61,9 @@ function GameObject(tile_layer, x, y){
             }
 
             // CHECK FOR COLLISION WITH TILE ON RIGHT SIDE
+            if (tile_layer.isTileBlocked(this.rightEdge(),this.y)){
+                this.alignRightEdge(Math.floor(this.rightEdge()/TILE_WIDTH)*TILE_WIDTH);
+            }
 
         } else if (this.xvel < 0){
 
@@ -71,6 +74,10 @@ function GameObject(tile_layer, x, y){
             }
 
             // CHECK FOR COLLISION WITH TILE ON LEFT SIDE
+            if (tile_layer.isTileBlocked(this.leftEdge(),this.y)){
+                this.alignLeftEdge(Math.floor((this.leftEdge()/TILE_WIDTH)+1)*TILE_WIDTH);
+            }
+
         }
 
     };
@@ -89,6 +96,9 @@ function GameObject(tile_layer, x, y){
             }
 
             // CHECK FOR COLLISION WITH TILE ON BOTTOM SIDE
+            if (tile_layer.isTileBlocked(this.x, this.bottomEdge())){
+                this.alignBottomEdge(Math.floor((this.bottomEdge()/TILE_HEIGHT))*TILE_HEIGHT);
+            }
 
         } else if (this.yvel < 0){
 
@@ -99,6 +109,10 @@ function GameObject(tile_layer, x, y){
             }
 
             // CHECK FOR COLLISION WITH TILE ON TOP SIDE
+            if (tile_layer.isTileBlocked(this.x, this.topEdge())){
+                this.alignTopEdge(Math.floor((this.topEdge()/TILE_HEIGHT)+1)*TILE_HEIGHT);
+            }
+
         }
 
     };

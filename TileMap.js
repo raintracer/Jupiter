@@ -54,12 +54,28 @@ function TileMap(){
 
     };
 
-    this.isTileBlocked = function(x,y){
-        return TILE_BLOCK_ARRAY[this.tileID];
+    this.tileX = function(x){
+        if (x<0){
+            console.log("Negative x value passed for TileX");
+            x = 0;
+        }
+        return Math.floor(x / TILE_WIDTH);
     };
 
-    this.tileID = function(x, y){
-          return this.TileArray[x][y];
+    this.tileY = function(y){
+        if (y<0){
+            console.log("Negative y value passed for TileY");
+            y = 0;
+        }
+        return Math.floor(y / TILE_HEIGHT);
+    };
+
+    this.isTileBlocked = function(x, y){
+        return TILE_BLOCK_ARRAY[this.tileID(this.tileX(x),this.tileY(y))];
+    };
+
+    this.tileID = function(tileX, tileY){
+          return this.TileArray[tileX][tileY];
     };
 
     this.buildMap();
