@@ -6,4 +6,8 @@ function Game(){
 
     this.scene = new Scene();
 
+    this.update = function(){
+        this.scene.update();
+    };
+
 }

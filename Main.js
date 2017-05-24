@@ -6,6 +6,7 @@ let tilelibrary;
 // GLOBAL CONSTANTS
 const STAGE_WIDTH = 800, STAGE_HEIGHT = 800;
 const TILE_WIDTH = 40, TILE_HEIGHT = 40;
+const FRICTION = .9,  STATIC_FRICTION = .2;
 
 // TILE DATA
 const TILE_BLOCK_ARRAY = [1, 0];
@@ -30,7 +31,6 @@ function setup(){
 function draw(){
 
     background(0);
-    game.scene.tilemap.draw();
-    noLoop()
+    game.update();
 
 }
