@@ -35,7 +35,7 @@ function GameObject(tile_layer, x, y){
             this.xvel = 0;
         }
 
-        if(Math.abs(this.xvel) < STATIC_FRICTION){
+        if(Math.abs(this.yvel) < STATIC_FRICTION){
             this.yvel = 0;
         }
 
@@ -53,9 +53,23 @@ function GameObject(tile_layer, x, y){
         this.x += this.xvel;
 
         if (this.xvel > 0){
+
+            // CHECK FOR COLLISION WITH BOUNDARY ON RIGHT SIDE
+            if(this.rightEdge() > width){
+                this.alignRightEdge(width);
+                this.xvel*=-1;
+            }
+
             // CHECK FOR COLLISION WITH TILE ON RIGHT SIDE
 
         } else if (this.xvel < 0){
+
+            // CHECK FOR COLLISION WITH BOUNDARY ON LEFT SIDE
+            if(this.x < 0){
+                this.alignLeftEdge(0);
+                this.xvel*=-1;
+            }
+
             // CHECK FOR COLLISION WITH TILE ON LEFT SIDE
         }
 
@@ -67,10 +81,24 @@ function GameObject(tile_layer, x, y){
         this.y += this.yvel;
 
         if (this.yvel > 0){
-            // CHECK FOR COLLISION WITH TILE ON RIGHT SIDE
+
+            // CHECK FOR COLLISION WITH BOUNDARY ON BOTTOM SIDE
+            if(this.bottomEdge() > height){
+                this.alignBottomEdge(height);
+                this.yvel*=-1;
+            }
+
+            // CHECK FOR COLLISION WITH TILE ON BOTTOM SIDE
 
         } else if (this.yvel < 0){
-            // CHECK FOR COLLISION WITH TILE ON LEFT SIDE
+
+            // CHECK FOR COLLISION WITH BOUNDARY ON TOP SIDE
+            if(this.topEdge() < 0){
+                this.alignTopEdge(0);
+                this.yvel*=-1;
+            }
+
+            // CHECK FOR COLLISION WITH TILE ON TOP SIDE
         }
 
     };
@@ -96,6 +124,22 @@ function GameObject(tile_layer, x, y){
 
     this.bottomEdge = function(){
         return this.y + this.h/2;
+    };
+
+    this.alignTopEdge = function(y){
+        this.y = y + this.h/2;
+    };
+
+    this.alignBottomEdge = function(y){
+        this.y = y - this.h/2;
+    };
+
+    this.alignRightEdge = function(x){
+        this.x = x - this.w/2;
+    };
+
+    this.alignLeftEdge = function(x){
+        this.x = x + this.w/2;
     };
 
     this.containsPoint = function(x, y){

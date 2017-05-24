@@ -4,7 +4,7 @@ let game;
 let tilelibrary;
 
 // GLOBAL CONSTANTS
-const STAGE_WIDTH = 800, STAGE_HEIGHT = 800;
+const STAGE_WIDTH = 500, STAGE_HEIGHT = 500;
 const TILE_WIDTH = 40, TILE_HEIGHT = 40;
 const FRICTION = .9,  STATIC_FRICTION = .2;
 
