@@ -25,6 +25,7 @@ function TileMap(){
 
             // PUSH THE TILE COLUMN TO THE TILE MAP ARRAY
             this.TileArray.push(TileColumn);
+            TileColumn = [];
 
         }
 
@@ -44,7 +45,6 @@ function TileMap(){
 
                 noStroke();
                 fill(255*color);
-                console.log(255*color);
                 rect(TILE_WIDTH*i, TILE_HEIGHT*j, TILE_WIDTH+1, TILE_HEIGHT+1);
 
             }
