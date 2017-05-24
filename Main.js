@@ -18,9 +18,6 @@ function preload(){
 // RUNS ON STARTUP
 function setup(){
 
-    // INITIALIZE THE TILE LIBRARY
-    tilelibrary = new TileLibrary();
-
     // DRAW THE STAGE
     canvas = createCanvas(STAGE_WIDTH, STAGE_HEIGHT);
 
