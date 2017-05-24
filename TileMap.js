@@ -5,5 +5,12 @@
 function Scene(){
 
     this.tilemap = new TileMap();
+    this.w = 20;
+    this.h = 20;
+
+
+    this.buildMap = function(){
+
+    }
 
 }
