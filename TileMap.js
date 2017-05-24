@@ -54,6 +54,14 @@ function TileMap(){
 
     };
 
+    this.isTileBlocked = function(x,y){
+        return TILE_BLOCK_ARRAY[this.tileID];
+    };
+
+    this.tileID = function(x, y){
+          return this.TileArray[x][y];
+    };
+
     this.buildMap();
 
 }
