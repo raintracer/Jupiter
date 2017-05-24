@@ -24,6 +24,11 @@ function GameObject(tile_layer, x, y){
 
     };
 
+    this.accelerate = function(xacc, yacc){
+        this.xvel += xacc;
+        this.yvel += yacc;
+    };
+
     this.move = function(){
 
         if(Math.abs(this.xvel) < STATIC_FRICTION){
@@ -52,14 +57,21 @@ function GameObject(tile_layer, x, y){
 
         } else if (this.xvel < 0){
             // CHECK FOR COLLISION WITH TILE ON LEFT SIDE
-
         }
 
     };
 
     this.moveY = function(){
 
+        // MOVE THE OBJECT
+        this.y += this.yvel;
 
+        if (this.yvel > 0){
+            // CHECK FOR COLLISION WITH TILE ON RIGHT SIDE
+
+        } else if (this.yvel < 0){
+            // CHECK FOR COLLISION WITH TILE ON LEFT SIDE
+        }
 
     };
 

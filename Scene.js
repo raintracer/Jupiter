@@ -6,15 +6,17 @@ function Scene(){
 
     this.tilemap = new TileMap();
     let GameObjects = [];
-
-    GameObjects.push(new GameObject(this.tilemap, 20,20));
+    let player = new Player(this.tilemap, 20,20);
 
     this.update = function(){
-        this.tilemap.draw();
 
+        player.playerUpdate();
+
+        this.tilemap.draw();
         for(let i=0; i<GameObjects.length; i++){
             GameObjects[i].draw();
         }
+        player.draw();
 
     };
 
