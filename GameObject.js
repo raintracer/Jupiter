@@ -96,7 +96,7 @@ function GameObject(tile_layer, x, y){
             }
 
             // CHECK FOR COLLISION WITH TILE ON BOTTOM SIDE
-            if (tile_layer.isTileBlocked(this.x, this.bottomEdge())){
+            if (tile_layer.isTileBlocked(this.x, this.bottomEdge()) || tile_layer.isTileBlocked(this.leftEdge(), this.bottomEdge()) || tile_layer.isTileBlocked(this.rightEdge(), this.bottomEdge())){
                 this.alignBottomEdge(Math.floor((this.bottomEdge()/TILE_HEIGHT))*TILE_HEIGHT);
             }
 
@@ -109,7 +109,7 @@ function GameObject(tile_layer, x, y){
             }
 
             // CHECK FOR COLLISION WITH TILE ON TOP SIDE
-            if (tile_layer.isTileBlocked(this.x, this.topEdge())){
+            if (tile_layer.isTileBlocked(this.x, this.topEdge()) || tile_layer.isTileBlocked(this.leftEdge(), this.topEdge()) || tile_layer.isTileBlocked(this.rightEdge(), this.topEdge())){
                 this.alignTopEdge(Math.floor((this.topEdge()/TILE_HEIGHT)+1)*TILE_HEIGHT);
             }
 

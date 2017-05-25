@@ -29,6 +29,45 @@ function TileMap(){
 
         }
 
+        // CARVE A RANDOM PATH FROM THE TOP LEFT CORNER TO THE BOTTOM RIGHT
+        let i = 0;
+        let j = 0;
+        let choice;
+        while (i!==(this.w-1) || j!==(this.h-1)){
+            // alert( i + "-" + j)
+            choice = Math.ceil(Math.random()*3.99);
+            switch (choice){
+                case 1:
+                    i++;
+                    break;
+                case 2:
+                    i--;
+                    break;
+                case 3:
+                    j++;
+                    break;
+                case 4:
+                    j--;
+                    break;
+
+            }
+
+            if(i<0){
+                i=0;
+            }
+            if(j<0){
+                j=0;
+            }
+            if(i>this.w-1){
+                i=this.w-1;
+            }
+            if(j>this.h-1){
+                j=this.h-1;
+            }
+
+            this.TileArray[i][j] = 0;
+        }
+
     };
 
     // DRAW THE TILE MAP
@@ -50,7 +89,6 @@ function TileMap(){
             }
 
         }
-
 
     };
 
