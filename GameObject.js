@@ -141,19 +141,19 @@ function GameObject(tile_layer, x, y){
     };
 
     this.alignTopEdge = function(y){
-        this.y = y + this.h/2;
+        this.y = y + this.h/2 + 1;
     };
 
     this.alignBottomEdge = function(y){
-        this.y = y - this.h/2;
+        this.y = y - this.h/2 - 1;
     };
 
     this.alignRightEdge = function(x){
-        this.x = x - this.w/2;
+        this.x = x - this.w/2 - 1;
     };
 
     this.alignLeftEdge = function(x){
-        this.x = x + this.w/2;
+        this.x = x + this.w/2 + 1;
     };
 
     this.containsPoint = function(x, y){
