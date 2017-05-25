@@ -61,20 +61,20 @@ function GameObject(tile_layer, x, y){
             }
 
             // CHECK FOR COLLISION WITH TILE ON RIGHT SIDE
-            if (tile_layer.isTileBlocked(this.rightEdge(),this.y)){
+            if (tile_layer.isTileBlocked(this.rightEdge(),this.y) || tile_layer.isTileBlocked(this.rightEdge(),this.topEdge()) || tile_layer.isTileBlocked(this.rightEdge(),this.bottomEdge())){
                 this.alignRightEdge(Math.floor(this.rightEdge()/TILE_WIDTH)*TILE_WIDTH);
             }
 
         } else if (this.xvel < 0){
 
             // CHECK FOR COLLISION WITH BOUNDARY ON LEFT SIDE
-            if(this.x < 0){
+            if(this.leftEdge() < 0){
                 this.alignLeftEdge(0);
                 this.xvel*=-1;
             }
 
             // CHECK FOR COLLISION WITH TILE ON LEFT SIDE
-            if (tile_layer.isTileBlocked(this.leftEdge(),this.y)){
+            if (tile_layer.isTileBlocked(this.leftEdge(),this.y) || tile_layer.isTileBlocked(this.leftEdge(),this.topEdge()) || tile_layer.isTileBlocked(this.leftEdge(),this.bottomEdge())){
                 this.alignLeftEdge(Math.floor((this.leftEdge()/TILE_WIDTH)+1)*TILE_WIDTH);
             }
 

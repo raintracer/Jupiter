@@ -7,7 +7,7 @@ function Player(tilelayer, x, y){
     // INHERIT FROM GAMEOBJECT
     GameObject.call(this, tilelayer, x, y);
 
-    let PlayerSpeed = 2;
+    let PlayerSpeed = .5;
 
     // PLAYER UPDATE
     this.playerUpdate = function(){
