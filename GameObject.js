@@ -16,6 +16,8 @@ function GameObject(tile_layer, x, y){
     this.xvel = 0;
     this.yvel = 0;
 
+    this.tilePosition = new Coordinate(0,0);
+
     const BLOCKED_BY_TILE = true;
 
     this.update = function(){
@@ -159,6 +161,17 @@ function GameObject(tile_layer, x, y){
     this.containsPoint = function(x, y){
         return (x>this.leftEdge() & x<this.rightEdge() && y>this.topEdge() && y<this.bottomEdge());
     };
+
+
+
+    this.updateTilePosition = function(){
+        this.tilePosition.x = Math.Floor(this.x/TILE_WIDTH);
+        this.tilePosition.y = Math.Floor(this.y/TILE_HEIGHT);
+    }
+
+    this.getTilePosition = function(){
+        return this.tilePosition;
+    }
 
 }
 

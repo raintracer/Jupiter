@@ -26,6 +26,12 @@ function Player(tilelayer, x, y){
             this.accelerate(0, PlayerSpeed);
         }
 
+        // AI Test
+        let PathArray = [];
+        let DesiredPosition = new Coordinate(19,19);
+        let CurrentPosition = new Coordinate(,19);
+
+
         // RUN STANDARD GAME OBJECT UPDATES
         this.update();
 
