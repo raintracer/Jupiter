@@ -174,5 +174,15 @@ function GameObject(tile_layer, x, y){
         return this.tilePosition;
     };
 
+    this.floatToTileCenter = function(){
+        let tileCenterX = this.getTilePosition().x * TILE_WIDTH + TILE_WIDTH/2;
+        let tileCenterY = this.getTilePosition().y * TILE_HEIGHT + TILE_HEIGHT/2;
+
+        let xDifference = this.x - tileCenterX;
+        let yDifference = this.y - tileCenterY;
+
+        this.accelerate(xDifference*.01, yDifference*.01);
+    }
+
 }
 

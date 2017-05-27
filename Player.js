@@ -30,7 +30,6 @@ function Player(tilelayer, x, y){
         // AI Test
         let PathArray = [];
         let DesiredPosition = new Coordinate(19,19);
-        let CurrentPosition = this.getTilePosition();
 
         // CAPTURE THE TILE BLOCK ARRAY
         let BlockArray = [];
@@ -52,9 +51,14 @@ function Player(tilelayer, x, y){
         // INITIATE THE PATH ARRAY
         PathArray.push(this.tilePosition);
 
+        console.log(PathArray[0].x);
+        console.log(PathArray[0].y);
+
         // ADD PATH PROPERTIES
         PathArray[0].parentPath = "None";
         PathArray[0].distance = 0;
+
+        //console.log("Down: " + BlockArray[PathArray[0].x][PathArray[0].y+1]);
 
         // LOOP THROUGH THE PATHS
         let resolution = false;
@@ -66,10 +70,10 @@ function Player(tilelayer, x, y){
             let parentPath = PathArray[0].parentPath;
             let distance = PathArray[0].distance;
 
-            // console.log(x);
-            // console.log(y);
-            // console.log(parentPath);
-            // console.log(distance);
+            console.log(x);
+            console.log(y);
+            console.log(parentPath);
+            console.log(distance);
 
             // CHECK FOR A MATCH WITH THE DESIRED POSITION
             if (x === DesiredPosition.x && y === DesiredPosition.y) {
@@ -97,6 +101,7 @@ function Player(tilelayer, x, y){
                         break;
                 }
 
+                alert (parentPath);
                 // END THE LOOP
                 break;
             }
@@ -175,6 +180,7 @@ function Player(tilelayer, x, y){
             }
         }
 
+        this.floatToTileCenter();
 
         // RUN STANDARD GAME OBJECT UPDATES
         this.update();
