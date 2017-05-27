@@ -13,6 +13,8 @@ function GameObject(tile_layer, x, y){
     this.w = TILE_WIDTH * .9;
     this.h = TILE_HEIGHT * .9;
 
+    this.path = new Path();
+
     this.xvel = 0;
     this.yvel = 0;
 
@@ -182,7 +184,9 @@ function GameObject(tile_layer, x, y){
         let yDifference = this.y - tileCenterY;
 
         this.accelerate(xDifference*.01, yDifference*.01);
-    }
+    };
+
+
 
 }
 
