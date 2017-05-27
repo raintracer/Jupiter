@@ -9,9 +9,16 @@ function Player(tilelayer, x, y){
 
     const AI_SPEED = .2;
     let PlayerSpeed = .5;
+    let time = 0;
 
     // PLAYER UPDATE
     this.playerUpdate = function(){
+
+        // TEST ANIMATE THE PLAYER THROUGH THE PATH
+        let frame = (time % this.path.PathArray.length);
+        this.alignLeftEdge(this.path.PathArray[frame].x*TILE_WIDTH);
+        this.alignTopEdge(this.path.PathArray[frame].y*TILE_HEIGHT);
+        time++;
 
         // CHECK FOR KEY PRESSES
         if (keyIsDown(LEFT_ARROW)){
@@ -34,8 +41,10 @@ function Player(tilelayer, x, y){
 
     };
 
+    // TEST RESOLVE PATH TO BOTTOM RIGHT OF SCREEN
     this.playerSetup = function(){
-        this.resolvePath(this.getTilePosition(), new Coordinate());
+        let pathfind = new Pathfinder(this, this.tile_layer);
+        this.path.loadPath(pathfind.resolvePath(this.getTilePosition(), new Coordinate(19,19)));
     }
 
 }

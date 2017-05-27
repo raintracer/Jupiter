@@ -11,33 +11,33 @@ function Path() {
     this.loadPath = function (path) {
         this.clearPath();
         for(let i = 0; i < path.PathArray.length; i++){
-            this.addCoordinate(path.PathArray[i].x, path.PathArray[i].y, path.PathArray[i].parentDirection);
+            this.addCoordinate(path.PathArray[i].x, path.PathArray[i].y);
         }
     };
 
     // RETURNS THE FIRST PATH COORDINATE
     this.startCoordinate = function () {
-        return PathArray[0];
+        return this.PathArray[0];
     };
 
     // RETURNS THE END COORDINATE
     this.endCoordinate = function () {
-        return PathArray[PathArray.length - 1];
+        return this.PathArray[this.PathArray.length - 1];
     };
 
     // REMOVES THE FIRST PATH COORDINATE
     this.shiftCoordinate = function () {
-        PathArray.shift();
+        this.PathArray.shift();
     };
 
     // ADDS A NEW COORDINATE AT THE END OF THE PATH
-    this.addCoordinate = function (x,y,parentDirection) {
-        PathArray.push(new Coordinate(x,y,parentDirection));
+    this.addCoordinate = function (x,y) {
+        this.PathArray.push(new Coordinate(x,y));
     };
 
     // CLEARS THE CURRENT PATH
     this.clearPath = function () {
-        PathArray = [];
+        this.PathArray = [];
     };
 
 }

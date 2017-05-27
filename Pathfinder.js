@@ -7,11 +7,11 @@ function Pathfinder(parent, tilelayer){
     this.parent = parent;
     this.tilelayer = tilelayer;
 
+    // HOLDS ALL OF THE POSSIBLE PATHS
+    let SearchArray = [];
+
     // RETURNS A PATH TO THE DESIRED COORDINATES
     this.resolvePath = function(CurrentPosition, DesiredPosition){
-
-        // HOLDS ALL OF THE POSSIBLE PATHS
-        let SearchArray = [];
 
         // CAPTURE THE TILE BLOCK ARRAY
         let BlockArray = [];
@@ -27,6 +27,9 @@ function Pathfinder(parent, tilelayer){
         // INITIATE THE SEARCH ARRAY
         SearchArray.push(new Path());
 
+        // ADD THE STARTING COORDINATE
+        SearchArray[0].addCoordinate(CurrentPosition.x, CurrentPosition.y);
+
         // LOOP THROUGH THE PATHS
         let resolution = false;
         while (resolution === false) {
@@ -34,37 +37,15 @@ function Pathfinder(parent, tilelayer){
             // PULL THE PROPERTIES OF THE FIRST PATH FOR READABILITY
             let x = SearchArray[0].endCoordinate().x;
             let y = SearchArray[0].endCoordinate().y;
-            let parentPath = SearchArray[0].endCoordinate().parentPath;
 
             // CHECK FOR A MATCH WITH THE DESIRED POSITION
             if (x === DesiredPosition.x && y === DesiredPosition.y) {
 
-                resolution = true;
-                switch (parentPath) {
-                    case "None":
-                        // DO NOTHING, THE OBJECT IS IN THE DESIRED POSITION
-                        break;
-                    case "Up":
-                        this.accelerate(0, -AI_SPEED);
-                        console.log("Path Resolved: UP");
-                        break;
-                    case "Down":
-                        this.accelerate(0, AI_SPEED);
-                        console.log("Path Resolved: DOWN");
-                        break;
-                    case "Left":
-                        this.accelerate(-AI_SPEED, 0);
-                        console.log("Path Resolved: LEFT");
-                        break;
-                    case "Right":
-                        this.accelerate(AI_SPEED, 0);
-                        console.log("Path Resolved: RIGHT");
-                        break;
-                }
+                // REMOVE THE STARTING COORDINATE, WHICH IS THE OBJECTS CURRENT POSITION
+                SearchArray[0].shiftCoordinate();
 
-                alert (parentPath);
-                // END THE LOOP
-                break;
+                // RETURN THE CURRENT SEARCH PATH, WHICH IS A SUCCESSFUL PATH
+                return SearchArray[0];
             }
             else{
                 // IF THERE IS NO MATCH, GENERATE NEW POSSIBLE PATHS ABOVE, BELOW, LEFT AND RIGHT.
@@ -148,7 +129,7 @@ function Pathfinder(parent, tilelayer){
                 }
 
                 // SHIFT THE PATH ARRAY TO LOAD THE NEXT POSSIBLE PATH
-                PathArray.shift();
+                SearchArray.shift();
 
             }
         }
