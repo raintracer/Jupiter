@@ -117,7 +117,7 @@ function TileMap(){
     };
 
     this.tileID = function(tileX, tileY){
-          return this.TileArray[tileX][tileY];
+        return this.TileArray[tileX][tileY];
     };
 
     this.buildMap();

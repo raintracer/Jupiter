@@ -43,14 +43,14 @@ function Player(tilelayer, x, y){
             BlockColumn = [];
         }
 
-        for (let i = 0; i < this.tile_layer.w; i++){
-            for (let j = 0; j < this.tile_layer.h; j++){
-                console.log(BlockArray[i][j]);
-            }
-        }
+        // for (let i = 0; i < this.tile_layer.w; i++){
+        //     for (let j = 0; j < this.tile_layer.h; j++){
+        //         console.log(BlockArray[i][j]);
+        //     }
+        // }
 
         // INITIATE THE PATH ARRAY
-        PathArray.push(new Coordinate(5,5));
+        PathArray.push(this.tilePosition);
 
         // ADD PATH PROPERTIES
         PathArray[0].parentPath = "None";
@@ -66,8 +66,14 @@ function Player(tilelayer, x, y){
             let parentPath = PathArray[0].parentPath;
             let distance = PathArray[0].distance;
 
+            // console.log(x);
+            // console.log(y);
+            // console.log(parentPath);
+            // console.log(distance);
+
             // CHECK FOR A MATCH WITH THE DESIRED POSITION
             if (x === DesiredPosition.x && y === DesiredPosition.y) {
+
                 resolution = true;
                 switch (parentPath) {
                     case "None":
@@ -75,26 +81,34 @@ function Player(tilelayer, x, y){
                         break;
                     case "Up":
                         this.accelerate(0, -AI_SPEED);
+                        console.log("Path Resolved: UP");
                         break;
                     case "Down":
                         this.accelerate(0, AI_SPEED);
+                        console.log("Path Resolved: DOWN");
                         break;
                     case "Left":
                         this.accelerate(-AI_SPEED, 0);
+                        console.log("Path Resolved: LEFT");
                         break;
                     case "Right":
                         this.accelerate(AI_SPEED, 0);
+                        console.log("Path Resolved: RIGHT");
                         break;
                 }
+
+                // END THE LOOP
+                break;
             }
             else{
                 // IF THERE IS NO MATCH, GENERATE NEW POSSIBLE PATHS ABOVE, BELOW, LEFT AND RIGHT.
                 // ELIMINATE THE CURRENT PATH AS AN OPTION
                 BlockArray[x][y] = 1;
+                // console.log(BlockArray[x][y]);
 
                 // ADD LEFT IF NOT BLOCKED OR ELIMINATED
                 if (x > 0) {
-                    if (!BlockArray[x - 1][y]) {
+                    if (BlockArray[x - 1][y] === 0) {
                         PathArray.push(new Coordinate(x - 1, y));
                         PathArray[PathArray.length - 1].distance = distance + 1;
                         if (parentPath = "None") {
@@ -102,13 +116,15 @@ function Player(tilelayer, x, y){
                         } else {
                             PathArray[PathArray.length - 1].parentPath = parentPath;
                         }
+                        BlockArray[x - 1][y] = 1;
+                        // console.log("New Path Generated at " + (x-1) + ", " + y);
 
                     }
                 }
 
                 // ADD RIGHT IF NOT BLOCKED OR ELIMINATED
                 if (x < 19) {
-                    if (!BlockArray[x + 1][y]) {
+                    if (BlockArray[x + 1][y] === 0) {
                         PathArray.push(new Coordinate(x + 1, y));
                         PathArray[PathArray.length - 1].distance = distance + 1;
                         if (parentPath = "None") {
@@ -116,13 +132,15 @@ function Player(tilelayer, x, y){
                         } else {
                             PathArray[PathArray.length - 1].parentPath = parentPath;
                         }
+                        BlockArray[x + 1][y] = 1;
+                        // console.log("New Path Generated at " + (x+1) + ", " + y);
 
                     }
                 }
 
                 // ADD UP IF NOT BLOCKED OR ELIMINATED
                 if (y > 0) {
-                    if (!BlockArray[x][y-1]) {
+                    if (BlockArray[x][y-1] === 0) {
                         PathArray.push(new Coordinate(x, y-1));
                         PathArray[PathArray.length - 1].distance = distance + 1;
                         if (parentPath = "None") {
@@ -130,13 +148,14 @@ function Player(tilelayer, x, y){
                         } else {
                             PathArray[PathArray.length - 1].parentPath = parentPath;
                         }
-
+                        BlockArray[x][y-1] = 1;
+                        // console.log("New Path Generated at " + (x) + ", " + (y-1));
                     }
                 }
 
                 // ADD DOWN IF NOT BLOCKED OR ELIMINATED
                 if (y < 19) {
-                    if (!BlockArray[x][y+1]) {
+                    if (BlockArray[x][y+1] === 0) {
                         PathArray.push(new Coordinate(x, y+1));
                         PathArray[PathArray.length - 1].distance = distance + 1;
                         if (parentPath = "None") {
@@ -144,6 +163,8 @@ function Player(tilelayer, x, y){
                         } else {
                             PathArray[PathArray.length - 1].parentPath = parentPath;
                         }
+                        BlockArray[x][y+1] = 1;
+                        // console.log("New Path Generated at " + (x) + ", " + (y+1));
 
                     }
                 }

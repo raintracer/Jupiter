@@ -32,4 +32,7 @@ function draw(){
     background(0);
     game.update();
 
+    // TESTING A SINGLE FRAME
+    // noLoop();
+
 }
