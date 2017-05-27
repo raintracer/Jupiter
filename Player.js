@@ -29,7 +29,7 @@ function Player(tilelayer, x, y){
         // AI Test
         let PathArray = [];
         let DesiredPosition = new Coordinate(19,19);
-        let CurrentPosition = new Coordinate(,19);
+        let CurrentPosition = this.getTilePosition();
 
 
         // RUN STANDARD GAME OBJECT UPDATES
