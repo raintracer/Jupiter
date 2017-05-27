@@ -1,6 +1,7 @@
 // GLOBAL VARIABLES
 let canvas;
 let game;
+let sprite;
 
 // GLOBAL CONSTANTS
 const STAGE_WIDTH = 600, STAGE_HEIGHT = 600;
@@ -12,6 +13,9 @@ const TILE_BLOCK_ARRAY = [0, 1];
 
 // RUNS BEFORE STARTUP
 function preload(){
+
+    sprite = createGraphics(96, 128);
+    sprite.loadImage("assets/kittysprites.png");
 
 }
 
