@@ -19,7 +19,7 @@ function ObjectCollection(tileLayer){
 
         }else if (objectType === "NPC"){
 
-            object = new GameObject(this.tileLayer, this.objectsMade, x, ye);
+            object = new GameObject(this.tileLayer, this.objectsMade, x, y);
 
         }
         else {
@@ -80,8 +80,10 @@ function ObjectCollection(tileLayer){
 
     };
 
-    this.setPathTargets = function(){
-
+    this.setPathTargets = function(TargetCoordinate){
+        for (i in this.gameObjects){
+            this.gameObjects[i].setPathTarget(TargetCoordinate);
+        }
     }
 
 }

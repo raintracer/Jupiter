@@ -94,7 +94,7 @@ function TileMap(){
 
     this.tileX = function(x){
         if (x<0){
-            console.log("Negative x value passed for TileX");
+            console.log("Negative x value passed for TileX: " + x);
             x = 0;
         }
         return Math.floor(x / TILE_WIDTH);
@@ -102,7 +102,7 @@ function TileMap(){
 
     this.tileY = function(y){
         if (y<0){
-            console.log("Negative y value passed for TileY");
+            console.log("Negative y value passed for TileY: " + y);
             y = 0;
         }
         return Math.floor(y / TILE_HEIGHT);
@@ -118,6 +118,25 @@ function TileMap(){
 
     this.tileID = function(tileX, tileY){
         return this.TileArray[tileX][tileY];
+    };
+
+    this.randomOpenTile = function(){
+
+        let x;
+        let y;
+
+        do{
+
+            x = Math.floor(Math.random()*(this.w-.001));
+            y = Math.floor(Math.random()*(this.h-.001));
+
+        } while(this.isTileBlocked(x,y));
+
+        // console.log ("Random x: " + x);
+        // console.log ("Random x: " + y);
+
+        return new Coordinate(x, y);
+
     };
 
     this.buildMap();

@@ -40,3 +40,26 @@ function draw(){
 function mousePressed(){
     game.mouseClicked(mouseX, mouseY);
 }
+
+
+// FUNCTIONS TO CONVERT BETWEEN DIFFERENT COORDINATE SYSTEMS
+
+function pixelsToTileX(x){
+    return Math.floor(x / TILE_WIDTH);
+}
+
+function pixelsToTileY(y){
+    return Math.floor(y / TILE_HEIGHT);
+}
+
+function pixelsToCoordinate(x,y){
+    return new Coordinate(pixelsToTileX(x), pixelsToTileY(y));
+}
+
+function tileToPixelsX(tileX){
+    return tileX * TILE_WIDTH + TILE_WIDTH / 2;
+}
+
+function tileToPixelsY(tileY){
+    return tileY * TILE_HEIGHT + TILE_HEIGHT / 2;
+}
