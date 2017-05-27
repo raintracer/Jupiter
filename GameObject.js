@@ -3,10 +3,12 @@
  */
 
 // GAME OBJECT TREATED AS RECTANGLE
-function GameObject(tile_layer, x, y){
+function GameObject(tile_layer, id, x, y){
 
     this.tile_layer = tile_layer;
     this.speed = 1;
+
+    this.id = id;
 
     this.x = x;
     this.y = y;
@@ -25,6 +27,17 @@ function GameObject(tile_layer, x, y){
     const BLOCKED_BY_TILE = true;
 
     this.update = function(){
+
+        this.move();
+
+    };
+
+    this.accelerate = function(xacc, yacc){
+        this.xvel += xacc;
+        this.yvel += yacc;
+    };
+
+    this.move = function(){
 
         //  MOVE BASED ON PATH IF THERE IS PATHING
         if (this.pathing === true){
@@ -52,14 +65,9 @@ function GameObject(tile_layer, x, y){
                 this.accelerate(0, -this.speed);
             }
 
-
-            // console.log(this.getTilePosition().x === this.path.startCoordinate().x);
-            // console.log(this.getTilePosition().y === this.path.startCoordinate().y);
-            // console.log("----");
-
             // SHIFT THE PATH IF THE OBJECT HAS ARRIVED
             if (this.getTilePosition().x === this.path.startCoordinate().x && this.getTilePosition().y === this.path.startCoordinate().y){
-                console.log("Shift coordinate");
+                // console.log("Shift coordinate");
                 if (this.path.PathArray.length>1) {
                     this.path.shiftCoordinate();
                 }
@@ -71,17 +79,6 @@ function GameObject(tile_layer, x, y){
             }
 
         }
-
-        this.move();
-
-    };
-
-    this.accelerate = function(xacc, yacc){
-        this.xvel += xacc;
-        this.yvel += yacc;
-    };
-
-    this.move = function(){
 
         if(Math.abs(this.xvel) < STATIC_FRICTION){
             this.xvel = 0;

@@ -10,4 +10,8 @@ function Game(){
         this.scene.update();
     };
 
+    this.mouseClicked = function(mouseX, mouseY){
+        this.scene.mouseClicked(mouseX, mouseY);
+    }
+
 }

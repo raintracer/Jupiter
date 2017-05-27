@@ -41,9 +41,6 @@ function Pathfinder(parent, tilelayer){
             // CHECK FOR A MATCH WITH THE DESIRED POSITION
             if (x === DesiredPosition.x && y === DesiredPosition.y) {
 
-                // REMOVE THE STARTING COORDINATE, WHICH IS THE OBJECTS CURRENT POSITION
-                SearchArray[0].shiftCoordinate();
-
                 // RETURN THE CURRENT SEARCH PATH, WHICH IS A SUCCESSFUL PATH
                 return SearchArray[0];
             }

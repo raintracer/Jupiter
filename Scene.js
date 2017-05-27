@@ -4,24 +4,30 @@
 
 function Scene(){
 
-    this.tilemap = new TileMap();
+    this.tileMap = new TileMap();
+    this.objectCollection  = new ObjectCollection(this.tileMap);
+    this.player = this.objectCollection.createObject("Player",20,20);
+
     let GameObjects = [];
     let time = 0;
-
-    this.player = new Player(this.tilemap, 20,20);
-    this.player.setPathTarget(new Coordinate(19,19));
 
     this.update = function(){
 
         time++;
-        this.player.playerUpdate();
 
-        this.tilemap.draw();
-        for(let i=0; i<GameObjects.length; i++){
-            GameObjects[i].draw();
-        }
-        this.player.draw();
+        // UPDATE OBJECTS
+        this.objectCollection.update();
+
+        // DRAW OBJECTS
+        this.tileMap.draw();
+        this.objectCollection.draw();
 
     };
+
+    this.mouseClicked = function(mouseX, mouseY){
+        let tileX = Math.floor(mouseX/TILE_WIDTH);
+        let tileY = Math.floor(mouseY/TILE_HEIGHT);
+        this.player.setPathTarget(new Coordinate(tileX, tileY));
+    }
 
 }

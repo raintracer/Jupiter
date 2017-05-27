@@ -2,17 +2,17 @@
  * Created by Richard Tyler on 5/24/2017.
  */
 
-function Player(tilelayer, x, y){
+function Player(tilelayer, id, x, y){
 
     // INHERIT FROM GAMEOBJECT
-    GameObject.call(this, tilelayer, x, y);
+    GameObject.call(this, tilelayer, id, x, y);
 
     const AI_SPEED = .2;
     let PlayerSpeed = .5;
     let time = 0;
 
     // PLAYER UPDATE
-    this.playerUpdate = function(){
+    this.update = function(){
 
         // TEST ANIMATE THE PLAYER THROUGH THE PATH
         // let frame = (time % this.path.PathArray.length);
@@ -35,7 +35,7 @@ function Player(tilelayer, x, y){
         }
 
         // RUN STANDARD GAME OBJECT UPDATES
-        this.update();
+        this.move();
 
     };
 
