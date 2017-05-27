@@ -63,7 +63,7 @@ function GameObject(tile_layer, x, y){
             }
 
             // CHECK FOR COLLISION WITH TILE ON RIGHT SIDE
-            if (tile_layer.isTileBlocked(this.rightEdge(),this.y) || tile_layer.isTileBlocked(this.rightEdge(),this.topEdge()) || tile_layer.isTileBlocked(this.rightEdge(),this.bottomEdge())){
+            if (tile_layer.isTileBlockedAtCoordinate(this.rightEdge(),this.y) || tile_layer.isTileBlocked(this.rightEdge(),this.topEdge()) || tile_layer.isTileBlocked(this.rightEdge(),this.bottomEdge())){
                 this.alignRightEdge(Math.floor(this.rightEdge()/TILE_WIDTH)*TILE_WIDTH);
             }
 
@@ -76,7 +76,7 @@ function GameObject(tile_layer, x, y){
             }
 
             // CHECK FOR COLLISION WITH TILE ON LEFT SIDE
-            if (tile_layer.isTileBlocked(this.leftEdge(),this.y) || tile_layer.isTileBlocked(this.leftEdge(),this.topEdge()) || tile_layer.isTileBlocked(this.leftEdge(),this.bottomEdge())){
+            if (tile_layer.isTileBlockedAtCoordinate(this.leftEdge(),this.y) || tile_layer.isTileBlocked(this.leftEdge(),this.topEdge()) || tile_layer.isTileBlocked(this.leftEdge(),this.bottomEdge())){
                 this.alignLeftEdge(Math.floor((this.leftEdge()/TILE_WIDTH)+1)*TILE_WIDTH);
             }
 
@@ -98,7 +98,7 @@ function GameObject(tile_layer, x, y){
             }
 
             // CHECK FOR COLLISION WITH TILE ON BOTTOM SIDE
-            if (tile_layer.isTileBlocked(this.x, this.bottomEdge()) || tile_layer.isTileBlocked(this.leftEdge(), this.bottomEdge()) || tile_layer.isTileBlocked(this.rightEdge(), this.bottomEdge())){
+            if (tile_layer.isTileBlockedAtCoordinate(this.x, this.bottomEdge()) || tile_layer.isTileBlocked(this.leftEdge(), this.bottomEdge()) || tile_layer.isTileBlocked(this.rightEdge(), this.bottomEdge())){
                 this.alignBottomEdge(Math.floor((this.bottomEdge()/TILE_HEIGHT))*TILE_HEIGHT);
             }
 
@@ -111,7 +111,7 @@ function GameObject(tile_layer, x, y){
             }
 
             // CHECK FOR COLLISION WITH TILE ON TOP SIDE
-            if (tile_layer.isTileBlocked(this.x, this.topEdge()) || tile_layer.isTileBlocked(this.leftEdge(), this.topEdge()) || tile_layer.isTileBlocked(this.rightEdge(), this.topEdge())){
+            if (tile_layer.isTileBlockedAtCoordinate(this.x, this.topEdge()) || tile_layer.isTileBlocked(this.leftEdge(), this.topEdge()) || tile_layer.isTileBlocked(this.rightEdge(), this.topEdge())){
                 this.alignTopEdge(Math.floor((this.topEdge()/TILE_HEIGHT)+1)*TILE_HEIGHT);
             }
 
@@ -165,13 +165,14 @@ function GameObject(tile_layer, x, y){
 
 
     this.updateTilePosition = function(){
-        this.tilePosition.x = Math.Floor(this.x/TILE_WIDTH);
-        this.tilePosition.y = Math.Floor(this.y/TILE_HEIGHT);
-    }
+        this.tilePosition.x = Math.floor(this.x/TILE_WIDTH);
+        this.tilePosition.y = Math.floor(this.y/TILE_HEIGHT);
+    };
 
     this.getTilePosition = function(){
+        this.updateTilePosition();
         return this.tilePosition;
-    }
+    };
 
 }
 

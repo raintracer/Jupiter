@@ -108,8 +108,12 @@ function TileMap(){
         return Math.floor(y / TILE_HEIGHT);
     };
 
-    this.isTileBlocked = function(x, y){
+    this.isTileBlockedAtCoordinate = function(x, y){
         return TILE_BLOCK_ARRAY[this.tileID(this.tileX(x),this.tileY(y))];
+    };
+
+    this.isTileBlocked = function(x, y){
+        return TILE_BLOCK_ARRAY[this.tileID(x,y)];
     };
 
     this.tileID = function(tileX, tileY){
