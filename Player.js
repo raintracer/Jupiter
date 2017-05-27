@@ -15,10 +15,10 @@ function Player(tilelayer, x, y){
     this.playerUpdate = function(){
 
         // TEST ANIMATE THE PLAYER THROUGH THE PATH
-        let frame = (time % this.path.PathArray.length);
-        this.alignLeftEdge(this.path.PathArray[frame].x*TILE_WIDTH);
-        this.alignTopEdge(this.path.PathArray[frame].y*TILE_HEIGHT);
-        time++;
+        // let frame = (time % this.path.PathArray.length);
+        // this.alignLeftEdge(this.path.PathArray[frame].x*TILE_WIDTH);
+        // this.alignTopEdge(this.path.PathArray[frame].y*TILE_HEIGHT);
+        // time++;
 
         // CHECK FOR KEY PRESSES
         if (keyIsDown(LEFT_ARROW)){
@@ -34,17 +34,9 @@ function Player(tilelayer, x, y){
             this.accelerate(0, PlayerSpeed);
         }
 
-        this.floatToTileCenter();
-
         // RUN STANDARD GAME OBJECT UPDATES
         this.update();
 
     };
-
-    // TEST RESOLVE PATH TO BOTTOM RIGHT OF SCREEN
-    this.playerSetup = function(){
-        let pathfind = new Pathfinder(this, this.tile_layer);
-        this.path.loadPath(pathfind.resolvePath(this.getTilePosition(), new Coordinate(19,19)));
-    }
 
 }

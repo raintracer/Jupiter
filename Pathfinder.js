@@ -131,6 +131,15 @@ function Pathfinder(parent, tilelayer){
                 // SHIFT THE PATH ARRAY TO LOAD THE NEXT POSSIBLE PATH
                 SearchArray.shift();
 
+                // CHECK FOR AN EMPTY ARRAY WHICH SIGNIFIES THAT THE PATHING FAILED
+                if (SearchArray.length === 0){
+
+                    // NO PATHING IS POSSIBLE, RETURN THE CURRENT POSITION
+                    let FailPath = new Path();
+                    FailPath.addCoordinate(CurrentPosition.x, CurrentPosition.y);
+                    return FailPath;
+                }
+
             }
         }
 

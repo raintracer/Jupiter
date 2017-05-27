@@ -6,6 +6,7 @@
 function GameObject(tile_layer, x, y){
 
     this.tile_layer = tile_layer;
+    this.speed = 1;
 
     this.x = x;
     this.y = y;
@@ -14,6 +15,7 @@ function GameObject(tile_layer, x, y){
     this.h = TILE_HEIGHT * .9;
 
     this.path = new Path();
+    this.pathing = false;
 
     this.xvel = 0;
     this.yvel = 0;
@@ -23,6 +25,52 @@ function GameObject(tile_layer, x, y){
     const BLOCKED_BY_TILE = true;
 
     this.update = function(){
+
+        //  MOVE BASED ON PATH IF THERE IS PATHING
+        if (this.pathing === true){
+
+            let xTarget = this.path.startCoordinate().x;
+            let yTarget = this.path.startCoordinate().y;
+
+            let xDifference = (xTarget*TILE_WIDTH + TILE_WIDTH/2) - this.x;
+            let yDifference = (yTarget*TILE_HEIGHT + TILE_HEIGHT/2) - this.y;
+
+            // console.log(xDifference);
+            // console.log(yDifference);
+            // console.log("----");
+
+            if (xDifference > 0) {
+                this.accelerate(this.speed, 0);
+            }
+            if (xDifference < 0) {
+                this.accelerate(-this.speed, 0);
+            }
+            if (yDifference > 0) {
+                this.accelerate(0, this.speed);
+            }
+            if (yDifference < 0) {
+                this.accelerate(0, -this.speed);
+            }
+
+
+            // console.log(this.getTilePosition().x === this.path.startCoordinate().x);
+            // console.log(this.getTilePosition().y === this.path.startCoordinate().y);
+            // console.log("----");
+
+            // SHIFT THE PATH IF THE OBJECT HAS ARRIVED
+            if (this.getTilePosition().x === this.path.startCoordinate().x && this.getTilePosition().y === this.path.startCoordinate().y){
+                console.log("Shift coordinate");
+                if (this.path.PathArray.length>1) {
+                    this.path.shiftCoordinate();
+                }
+            }
+
+            // END THE PATHING IF THE OBJECT HAS ARRIVED TO ITS TARGET DESTINATION
+            if (this.path.PathArray.length === 0){
+                this.pathing = false;
+            }
+
+        }
 
         this.move();
 
@@ -176,17 +224,17 @@ function GameObject(tile_layer, x, y){
         return this.tilePosition;
     };
 
-    this.floatToTileCenter = function(){
-        let tileCenterX = this.getTilePosition().x * TILE_WIDTH + TILE_WIDTH/2;
-        let tileCenterY = this.getTilePosition().y * TILE_HEIGHT + TILE_HEIGHT/2;
-
-        let xDifference = this.x - tileCenterX;
-        let yDifference = this.y - tileCenterY;
-
-        this.accelerate(xDifference*.01, yDifference*.01);
+    // START PATHING AND SET A TARGET COORDINATE
+    this.setPathTarget = function(TargetCoordinate){
+        this.pathing = true;
+        this.resolvePath(TargetCoordinate)
     };
 
-
+    // TEST RESOLVE PATH TO TARGET
+    this.resolvePath = function(TargetCoordinate){
+        let pathfind = new Pathfinder(this, this.tile_layer);
+        this.path.loadPath(pathfind.resolvePath(this.getTilePosition(), TargetCoordinate));
+    }
 
 }
 

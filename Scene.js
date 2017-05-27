@@ -9,7 +9,7 @@ function Scene(){
     let time = 0;
 
     this.player = new Player(this.tilemap, 20,20);
-    this.player.playerSetup();
+    this.player.setPathTarget(new Coordinate(19,19));
 
     this.update = function(){
 

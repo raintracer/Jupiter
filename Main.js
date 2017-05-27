@@ -36,3 +36,9 @@ function draw(){
     // noLoop();
 
 }
+
+function mousePressed(){
+    let tileX = Math.floor(mouseX/TILE_WIDTH);
+    let tileY = Math.floor(mouseY/TILE_HEIGHT);
+    game.scene.player.setPathTarget(new Coordinate(tileX, tileY));
+}
