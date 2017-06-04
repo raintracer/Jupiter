@@ -8,6 +8,8 @@ function Scene(){
     this.objectCollection  = new ObjectCollection(this.tileMap);
     this.player = this.objectCollection.createObject("Player",20,20);
 
+    this.camera = new Camera(new Coordinate(0,0), 1);
+
     let GameObjects = [];
     let time = 0;
 
@@ -30,8 +32,8 @@ function Scene(){
         let RandomCoordinate = new Coordinate(0,0);
         RandomCoordinate.copyCoordinate(this.tileMap.randomOpenTile());
 
-        console.log(RandomCoordinate.x);
-        console.log(RandomCoordinate.y);
+        // console.log(RandomCoordinate.x);
+        // console.log(RandomCoordinate.y);
 
         this.objectCollection.createObject("NPC", tileToPixelsX(RandomCoordinate.x), tileToPixelsY(RandomCoordinate.y));
 

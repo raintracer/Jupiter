@@ -74,7 +74,7 @@ function GameObject(tilemap, id, x, y){
             }
 
             // END THE PATHING IF THE OBJECT HAS ARRIVED TO ITS TARGET DESTINATION
-            if (this.path.PathArray.length === 0){
+            if (this.path.PathArray.length === 1){
                 this.pathing = false;
             }
 
@@ -104,8 +104,8 @@ function GameObject(tilemap, id, x, y){
         if (this.xvel > 0){
 
             // CHECK FOR COLLISION WITH BOUNDARY ON RIGHT SIDE
-            if(this.rightEdge() > width){
-                this.alignRightEdge(width);
+            if(this.rightEdge() > this.tilemap.width){
+                this.alignRightEdge(this.tilemap.width);
                 this.xvel*=-1;
             }
 
@@ -139,8 +139,8 @@ function GameObject(tilemap, id, x, y){
         if (this.yvel > 0){
 
             // CHECK FOR COLLISION WITH BOUNDARY ON BOTTOM SIDE
-            if(this.bottomEdge() > height){
-                this.alignBottomEdge(height);
+            if(this.bottomEdge() > this.tilemap.height){
+                this.alignBottomEdge(this.tilemap.height);
                 this.yvel*=-1;
             }
 
