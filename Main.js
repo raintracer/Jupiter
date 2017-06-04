@@ -8,10 +8,8 @@ const STAGE_WIDTH = 600, STAGE_HEIGHT = 600;
 const TILE_WIDTH = 20, TILE_HEIGHT = 20;
 const FRICTION = .9,  STATIC_FRICTION = .2;
 
-// TILE LIBRARY
-const TILE_RED_COLOR    = [0, 150, 100,   0,   0];
-const TILE_GREEN_COLOR  = [0, 150,   0, 100,   0];
-const TILE_BLUE_COLOR   = [0, 150,   0,   0, 100];
+// TILE DATA
+let TILE_GRAPHIC_ARRAY = [];
 const TILE_BLOCK_ARRAY  = [0,   1,   1,   1,   1];
 
 // RUNS BEFORE STARTUP
@@ -24,6 +22,31 @@ function preload(){
 
 // RUNS ON STARTUP
 function setup(){
+
+    // TILE GRAPHIC DATA
+    for (let i =0; i < 5; i++){
+        TILE_GRAPHIC_ARRAY.push(createGraphics(TILE_WIDTH, TILE_HEIGHT));
+    }
+
+    TILE_GRAPHIC_ARRAY[0].fill(0,0,0);
+    TILE_GRAPHIC_ARRAY[0].noStroke();
+    TILE_GRAPHIC_ARRAY[0].rect(0, 0, TILE_WIDTH+1, TILE_HEIGHT+1);
+
+    TILE_GRAPHIC_ARRAY[1].fill(150,150,150);
+    TILE_GRAPHIC_ARRAY[1].noStroke();
+    TILE_GRAPHIC_ARRAY[1].rect(0, 0, TILE_WIDTH+1, TILE_HEIGHT+1);
+
+    TILE_GRAPHIC_ARRAY[2].fill(100,0,0);
+    TILE_GRAPHIC_ARRAY[2].noStroke();
+    TILE_GRAPHIC_ARRAY[2].rect(0, 0, TILE_WIDTH+1, TILE_HEIGHT+1);
+
+    TILE_GRAPHIC_ARRAY[3].fill(0,100,0);
+    TILE_GRAPHIC_ARRAY[3].noStroke();
+    TILE_GRAPHIC_ARRAY[3].rect(0, 0, TILE_WIDTH+1, TILE_HEIGHT+1);
+
+    TILE_GRAPHIC_ARRAY[4].fill(0,0,100);
+    TILE_GRAPHIC_ARRAY[4].noStroke();
+    TILE_GRAPHIC_ARRAY[4].rect(0, 0, TILE_WIDTH+1, TILE_HEIGHT+1);
 
     // DRAW THE STAGE
     canvas = createCanvas(STAGE_WIDTH, STAGE_HEIGHT);

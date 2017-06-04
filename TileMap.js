@@ -107,11 +107,8 @@ function TileMap(w,h){
                 if (tileID > 0) {
 
                     // DRAW THE TILE
+                    image(TILE_GRAPHIC_ARRAY[tileID], TILE_WIDTH * i - gameCamera.x + width / 2, TILE_HEIGHT * j - gameCamera.y + height / 2);
 
-                    noStroke();
-                    fill(TILE_RED_COLOR[tileID], TILE_GREEN_COLOR[tileID], TILE_BLUE_COLOR[tileID]);
-
-                    rect(TILE_WIDTH * i - gameCamera.x + width / 2, TILE_HEIGHT * j - gameCamera.y + height / 2, TILE_WIDTH + 1, TILE_HEIGHT + 1);
                 }
             }
 
