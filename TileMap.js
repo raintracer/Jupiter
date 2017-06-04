@@ -24,7 +24,7 @@ function TileMap(w,h){
             for(let j = 0; j < this.h; j++) {
 
                 // PUSH A RANDOM VALUE ONTO THE TILE COLUMN
-                TileColumn.push(Math.ceil(Math.random()*2)-1);
+                TileColumn.push(Math.ceil(Math.random()*5)-1);
             }
 
             // PUSH THE TILE COLUMN TO THE TILE MAP ARRAY
@@ -77,21 +77,42 @@ function TileMap(w,h){
     // DRAW THE TILE MAP
     this.draw = function(gameCamera){
 
-        // FOR EACH COLUMN IN THE TILE MAP ARRAY
-        for(let i = 0; i < this.w; i++) {
+        // DETERMINE WHICH TILES ARE VISIBLE ON THE STAGE
+        let screenLeftTile = pixelsToTileX(gameCamera.screenLeftEdge());
+        let screenRightTile = pixelsToTileX(gameCamera.screenRightEdge());
+        let screenTopTile = pixelsToTileY(gameCamera.screenTopEdge());
+        let screenBottomTile = pixelsToTileY(gameCamera.screenBottomEdge());
 
-            // FOR EACH ROW IN THE TILE MAP ARRAY
-            for(let j = 0; j < this.h; j++) {
+        // LIMIT THE TILES BASED ON THE TILEMAP SIZE
+        if (screenLeftTile < 0){
+            screenLeftTile = 0;
+        }
+        if (screenTopTile < 0){
+            screenTopTile = 0;
+        }
+        if (screenRightTile > this.w){
+            screenRightTile = this.w;
+        }
+        if (screenBottomTile > this.h){
+            screenBottomTile = this.h;
+        }
 
-                // DRAW THE TILE
-                let color = this.TileArray[i][j];
+        // FOR EACH VISIBLE COLUMN IN THE TILE MAP ARRAY
+        for(let i = screenLeftTile; i < screenRightTile; i++) {
 
-                if (color===1) {
+            // FOR EACH VISIBLE ROW IN THE TILE MAP ARRAY
+            for(let j = screenTopTile; j < screenBottomTile; j++) {
+
+                let tileID = this.TileArray[i][j];
+                if (tileID > 0) {
+
+                    // DRAW THE TILE
+
                     noStroke();
-                    fill(255 * color);
-                    rect(TILE_WIDTH * i - gameCamera.x + width/2, TILE_HEIGHT * j - gameCamera.y + height/2, TILE_WIDTH + 1, TILE_HEIGHT + 1);
-                }
+                    fill(TILE_RED_COLOR[tileID], TILE_GREEN_COLOR[tileID], TILE_BLUE_COLOR[tileID]);
 
+                    rect(TILE_WIDTH * i - gameCamera.x + width / 2, TILE_HEIGHT * j - gameCamera.y + height / 2, TILE_WIDTH + 1, TILE_HEIGHT + 1);
+                }
             }
 
         }

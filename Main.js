@@ -8,8 +8,11 @@ const STAGE_WIDTH = 600, STAGE_HEIGHT = 600;
 const TILE_WIDTH = 20, TILE_HEIGHT = 20;
 const FRICTION = .9,  STATIC_FRICTION = .2;
 
-// TILE DATA
-const TILE_BLOCK_ARRAY = [0, 1];
+// TILE LIBRARY
+const TILE_RED_COLOR    = [0, 150, 100,   0,   0];
+const TILE_GREEN_COLOR  = [0, 150,   0, 100,   0];
+const TILE_BLUE_COLOR   = [0, 150,   0,   0, 100];
+const TILE_BLOCK_ARRAY  = [0,   1,   1,   1,   1];
 
 // RUNS BEFORE STARTUP
 function preload(){

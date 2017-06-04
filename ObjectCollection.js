@@ -15,11 +15,11 @@ function ObjectCollection(tileLayer){
 
         if (objectType === "Player"){
 
-            object = new Player(this.tileLayer, this.objectsMade, x, y);
+            object = new Player(this, this.tileLayer, this.objectsMade, x, y);
 
         }else if (objectType === "NPC"){
 
-            object = new GameObject(this.tileLayer, this.objectsMade, x, y);
+            object = new GameObject(this, this.tileLayer, this.objectsMade, x, y);
 
         }
         else {
@@ -43,6 +43,7 @@ function ObjectCollection(tileLayer){
 
                 this.gameObjects.splice(i,1);
                 this.objectQuantity--;
+                break;
 
             }
 

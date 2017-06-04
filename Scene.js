@@ -4,11 +4,11 @@
 
 function Scene(){
 
-    this.tileMap = new TileMap(100,100);
+    this.tileMap = new TileMap(30,30);
     this.objectCollection  = new ObjectCollection(this.tileMap);
     this.player = this.objectCollection.createObject("Player",TILE_WIDTH/2,TILE_HEIGHT/2);
 
-    this.gameCamera = new GameCamera(new Coordinate(TILE_WIDTH/2,TILE_HEIGHT/2), 1);
+    this.gameCamera = new GameCamera(new Coordinate(0,0), 1);
 
     let GameObjects = [];
     let time = 0;

@@ -3,7 +3,9 @@
  */
 
 // GAME OBJECT TREATED AS RECTANGLE
-function GameObject(tilemap, id, x, y){
+function GameObject(objectCollection, tilemap, id, x, y){
+
+    this.objectCollection = objectCollection;
 
     this.tilemap = tilemap;
     this.speed = 1;
@@ -129,6 +131,39 @@ function GameObject(tilemap, id, x, y){
 
         }
 
+        // FOR EVERY OTHER GAME OBJECT
+        let gameObjects = this.objectCollection.gameObjects;
+        for (let i = 0; i < gameObjects.length; i++){
+            if (gameObjects[i].id !== this.id){
+
+                // CAPTURE THE GAME OBJECT
+                let gameObject = gameObjects[i];
+
+                // IF THE ACTIVE OBJECT IS MOVING RIGHT
+                if (this.xvel > 0){
+
+                    // CHECK FOR COLLISION ON THE RIGHT SIDE
+                    if(gameObject.containsPoint(this.rightEdge(),this.y) || gameObject.containsPoint(this.rightEdge(),this.topEdge()) || gameObject.containsPoint(this.rightEdge(),this.bottomEdge())){
+                        this.alignRightEdge(gameObject.leftEdge());
+                        gameObject.accelerate(this.xvel/2,0);
+                        this.accelerate(-this.xvel/2,0);
+                    }
+
+                } else if (this.xvel < 0){
+                    // IF THE ACTIVE OBJECT IS MOVING LEFT
+
+                    // CHECK FOR COLLISION ON THE LEFT SIDE
+                    if(gameObject.containsPoint(this.leftEdge(),this.y) || gameObject.containsPoint(this.leftEdge(),this.topEdge()) || gameObject.containsPoint(this.leftEdge(),this.bottomEdge())){
+                        this.alignLeftEdge(gameObject.rightEdge());
+                        gameObject.accelerate(this.xvel/2,0);
+                        this.accelerate(-this.xvel/2,0);
+                    }
+
+                }
+
+            }
+        }
+
     };
 
     this.moveY = function(){
@@ -162,6 +197,39 @@ function GameObject(tilemap, id, x, y){
                 this.alignTopEdge(Math.floor((this.topEdge()/TILE_HEIGHT)+1)*TILE_HEIGHT);
             }
 
+        }
+
+        // FOR EVERY OTHER GAME OBJECT
+        let gameObjects = this.objectCollection.gameObjects;
+        for (let i = 0; i < gameObjects.length; i++){
+            if (gameObjects[i].id !== this.id){
+
+                // CAPTURE THE GAME OBJECT
+                let gameObject = gameObjects[i];
+
+                // IF THE ACTIVE OBJECT IS MOVING DOWN
+                if (this.yvel > 0){
+
+                    // CHECK FOR COLLISION ON THE BOTTOM SIDE
+                    if(gameObject.containsPoint(this.rightEdge(),this.bottomEdge()) || gameObject.containsPoint(this.leftEdge(),this.bottomEdge()) || gameObject.containsPoint(this.x,this.bottomEdge())){
+                        this.alignBottomEdge(gameObject.topEdge());
+                        gameObject.accelerate(0, this.yvel/2);
+                        this.accelerate(0, -this.yvel/2);
+                    }
+
+                } else if (this.yvel < 0){
+                    // IF THE ACTIVE OBJECT IS MOVING UP
+
+                    // CHECK FOR COLLISION ON THE TOP SIDE
+                    if(gameObject.containsPoint(this.rightEdge(),this.topEdge()) || gameObject.containsPoint(this.leftEdge(),this.topEdge()) || gameObject.containsPoint(this.x,this.topEdge())){
+                        this.alignTopEdge(gameObject.bottomEdge());
+                        gameObject.accelerate(0, this.yvel/2);
+                        this.accelerate(0, -this.yvel/2);
+                    }
+
+                }
+
+            }
         }
 
     };
@@ -206,7 +274,7 @@ function GameObject(tilemap, id, x, y){
     };
 
     this.containsPoint = function(x, y){
-        return (x>this.leftEdge() & x<this.rightEdge() && y>this.topEdge() && y<this.bottomEdge());
+        return (x > this.leftEdge() && x < this.rightEdge() && y > this.topEdge() && y < this.bottomEdge());
     };
 
 
