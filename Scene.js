@@ -4,9 +4,9 @@
 
 function Scene(){
 
-    this.tileMap = new TileMap();
+    this.tileMap = new TileMap(30,30);
     this.objectCollection  = new ObjectCollection(this.tileMap);
-    this.player = this.objectCollection.createObject("Player",20,20);
+    this.player = this.objectCollection.createObject("Player",TILE_WIDTH/2,TILE_HEIGHT/2);
 
     this.camera = new Camera(new Coordinate(0,0), 1);
 

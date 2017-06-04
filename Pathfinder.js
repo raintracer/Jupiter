@@ -70,7 +70,7 @@ function Pathfinder(parent, tilemap){
                 }
 
                 // ADD RIGHT IF NOT BLOCKED OR ELIMINATED
-                if (x < 19) {
+                if (x < this.tilemap.w-1) {
                     if (BlockArray[x + 1][y] === 0) {
 
                         // COPY THE CURRENT SEARCH PATH TO A NEW SEARCH PATH AND ADD A NEW COORDINATE BASED ON THE PARENT AND DIRECTION
@@ -107,7 +107,7 @@ function Pathfinder(parent, tilemap){
                 }
 
                 // ADD DOWN IF NOT BLOCKED OR ELIMINATED
-                if (y < 19) {
+                if (y < this.tilemap.h-1) {
                     if (BlockArray[x][y+1] === 0) {
 
                         // COPY THE CURRENT SEARCH PATH TO A NEW SEARCH PATH AND ADD A NEW COORDINATE BASED ON THE PARENT AND DIRECTION

@@ -2,10 +2,10 @@
  * Created by Richard Tyler on 5/24/2017.
  */
 
-function TileMap(){
+function TileMap(w,h){
 
-    this.w = 20;
-    this.h = 20;
+    this.w = w;
+    this.h = h;
 
     this.width = this.w * TILE_WIDTH;
     this.height = this.h * TILE_HEIGHT;
@@ -45,10 +45,10 @@ function TileMap(){
                     i++;
                     break;
                 case 2:
-                    i--;
+                    j++;
                     break;
                 case 3:
-                    j++;
+                    i--;
                     break;
                 case 4:
                     j--;
@@ -103,6 +103,10 @@ function TileMap(){
             console.log("Negative x value passed for TileX: " + x);
             x = 0;
         }
+        // else if(x>this.x*TILE_WIDTH){
+        //     console.log("Negative x value passed for TileX: " + x);
+        //     x = 0;
+        // }
         return Math.floor(x / TILE_WIDTH);
     };
 

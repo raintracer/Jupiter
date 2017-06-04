@@ -224,7 +224,7 @@ function GameObject(tilemap, id, x, y){
     // START PATHING AND SET A TARGET COORDINATE
     this.setPathTarget = function(TargetCoordinate){
         this.pathing = true;
-        this.resolvePath(TargetCoordinate)
+        this.resolvePath(TargetCoordinate);
     };
 
     // TEST RESOLVE PATH TO TARGET
