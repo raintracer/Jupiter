@@ -86,9 +86,11 @@ function TileMap(){
                 // DRAW THE TILE
                 let color = this.TileArray[i][j];
 
-                noStroke();
-                fill(255*color);
-                rect(TILE_WIDTH*i, TILE_HEIGHT*j, TILE_WIDTH+1, TILE_HEIGHT+1);
+                if (color===1) {
+                    noStroke();
+                    fill(255 * color);
+                    rect(TILE_WIDTH * i, TILE_HEIGHT * j, TILE_WIDTH + 1, TILE_HEIGHT + 1);
+                }
 
             }
 
