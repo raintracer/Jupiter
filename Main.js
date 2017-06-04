@@ -27,13 +27,13 @@ function setup(){
 
     // INITIALIZE THE GAME
     game = new Game();
-
+    background(0);
 }
 
 // RUNS EVERY FRAME
 function draw(){
 
-    // background(0);
+    background(0,0,0,100);
     game.update();
 
     // TESTING A SINGLE FRAME
