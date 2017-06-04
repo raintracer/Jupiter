@@ -6,6 +6,10 @@ function TileMap(){
 
     this.w = 20;
     this.h = 20;
+
+    this.width = this.w * TILE_WIDTH;
+    this.height = this.h * TILE_HEIGHT;
+
     this.TileArray = [];
 
     // BUILD A RANDOM TILE MAP

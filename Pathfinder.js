@@ -2,10 +2,10 @@
  * Created by Richard Tyler on 5/27/2017.
  */
 
-function Pathfinder(parent, tilelayer){
+function Pathfinder(parent, tilemap){
 
     this.parent = parent;
-    this.tilelayer = tilelayer;
+    this.tilemap = tilemap;
 
     // HOLDS ALL OF THE POSSIBLE PATHS
     let SearchArray = [];
@@ -16,9 +16,9 @@ function Pathfinder(parent, tilelayer){
         // CAPTURE THE TILE BLOCK ARRAY
         let BlockArray = [];
         let BlockColumn = [];
-        for (let i = 0; i < this.tilelayer.w; i++){
-            for (let j = 0; j < this.tilelayer.h; j++){
-                BlockColumn.push(this.tilelayer.isTileBlocked(i,j));
+        for (let i = 0; i < this.tilemap.w; i++){
+            for (let j = 0; j < this.tilemap.h; j++){
+                BlockColumn.push(this.tilemap.isTileBlocked(i,j));
             }
             BlockArray.push(BlockColumn);
             BlockColumn = [];

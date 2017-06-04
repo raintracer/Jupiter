@@ -2,10 +2,10 @@
  * Created by Richard Tyler on 5/24/2017.
  */
 
-function Player(tilelayer, id, x, y){
+function Player(tilemap, id, x, y){
 
     // INHERIT FROM GAMEOBJECT
-    GameObject.call(this, tilelayer, id, x, y);
+    GameObject.call(this, tilemap, id, x, y);
 
     const AI_SPEED = .2;
     let PlayerSpeed = .5;

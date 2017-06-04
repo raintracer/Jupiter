@@ -3,9 +3,9 @@
  */
 
 // GAME OBJECT TREATED AS RECTANGLE
-function GameObject(tile_layer, id, x, y){
+function GameObject(tilemap, id, x, y){
 
-    this.tile_layer = tile_layer;
+    this.tilemap = tilemap;
     this.speed = 1;
 
     this.id = id;
@@ -110,7 +110,7 @@ function GameObject(tile_layer, id, x, y){
             }
 
             // CHECK FOR COLLISION WITH TILE ON RIGHT SIDE
-            if (tile_layer.isTileBlockedAtCoordinate(this.rightEdge(),this.y) || tile_layer.isTileBlockedAtCoordinate(this.rightEdge(),this.topEdge()) || tile_layer.isTileBlockedAtCoordinate(this.rightEdge(),this.bottomEdge())){
+            if (tilemap.isTileBlockedAtCoordinate(this.rightEdge(),this.y) || tilemap.isTileBlockedAtCoordinate(this.rightEdge(),this.topEdge()) || tilemap.isTileBlockedAtCoordinate(this.rightEdge(),this.bottomEdge())){
                 this.alignRightEdge(Math.floor(this.rightEdge()/TILE_WIDTH)*TILE_WIDTH);
             }
 
@@ -123,7 +123,7 @@ function GameObject(tile_layer, id, x, y){
             }
 
             // CHECK FOR COLLISION WITH TILE ON LEFT SIDE
-            if (tile_layer.isTileBlockedAtCoordinate(this.leftEdge(),this.y) || tile_layer.isTileBlockedAtCoordinate(this.leftEdge(),this.topEdge()) || tile_layer.isTileBlockedAtCoordinate(this.leftEdge(),this.bottomEdge())){
+            if (tilemap.isTileBlockedAtCoordinate(this.leftEdge(),this.y) || tilemap.isTileBlockedAtCoordinate(this.leftEdge(),this.topEdge()) || tilemap.isTileBlockedAtCoordinate(this.leftEdge(),this.bottomEdge())){
                 this.alignLeftEdge(Math.floor((this.leftEdge()/TILE_WIDTH)+1)*TILE_WIDTH);
             }
 
@@ -145,7 +145,7 @@ function GameObject(tile_layer, id, x, y){
             }
 
             // CHECK FOR COLLISION WITH TILE ON BOTTOM SIDE
-            if (tile_layer.isTileBlockedAtCoordinate(this.x, this.bottomEdge()) || tile_layer.isTileBlockedAtCoordinate(this.leftEdge(), this.bottomEdge()) || tile_layer.isTileBlockedAtCoordinate(this.rightEdge(), this.bottomEdge())){
+            if (tilemap.isTileBlockedAtCoordinate(this.x, this.bottomEdge()) || tilemap.isTileBlockedAtCoordinate(this.leftEdge(), this.bottomEdge()) || tilemap.isTileBlockedAtCoordinate(this.rightEdge(), this.bottomEdge())){
                 this.alignBottomEdge(Math.floor((this.bottomEdge()/TILE_HEIGHT))*TILE_HEIGHT);
             }
 
@@ -158,7 +158,7 @@ function GameObject(tile_layer, id, x, y){
             }
 
             // CHECK FOR COLLISION WITH TILE ON TOP SIDE
-            if (tile_layer.isTileBlockedAtCoordinate(this.x, this.topEdge()) || tile_layer.isTileBlockedAtCoordinate(this.leftEdge(), this.topEdge()) || tile_layer.isTileBlockedAtCoordinate(this.rightEdge(), this.topEdge())){
+            if (tilemap.isTileBlockedAtCoordinate(this.x, this.topEdge()) || tilemap.isTileBlockedAtCoordinate(this.leftEdge(), this.topEdge()) || tilemap.isTileBlockedAtCoordinate(this.rightEdge(), this.topEdge())){
                 this.alignTopEdge(Math.floor((this.topEdge()/TILE_HEIGHT)+1)*TILE_HEIGHT);
             }
 
@@ -229,7 +229,7 @@ function GameObject(tile_layer, id, x, y){
 
     // TEST RESOLVE PATH TO TARGET
     this.resolvePath = function(TargetCoordinate){
-        let pathfind = new Pathfinder(this, this.tile_layer);
+        let pathfind = new Pathfinder(this, this.tilemap);
         this.path.loadPath(pathfind.resolvePath(this.getTilePosition(), TargetCoordinate));
     }
 
