@@ -166,10 +166,10 @@ function GameObject(tilemap, id, x, y){
 
     };
 
-    this.draw = function(){
+    this.draw = function(gameCamera){
 
         fill(255,0,0);
-        rect(this.leftEdge(), this.topEdge(), this.w, this.h);
+        rect(this.leftEdge() - gameCamera.x + width/2, this.topEdge() - gameCamera.y + height/2, this.w, this.h);
 
     };
 

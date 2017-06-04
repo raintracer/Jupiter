@@ -72,10 +72,10 @@ function ObjectCollection(tileLayer){
 
     };
 
-    this.draw = function(){
+    this.draw = function(gameCamera){
 
         for (i in this.gameObjects){
-            this.gameObjects[i].draw();
+            this.gameObjects[i].draw(gameCamera);
         }
 
     };

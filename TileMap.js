@@ -75,7 +75,7 @@ function TileMap(w,h){
     };
 
     // DRAW THE TILE MAP
-    this.draw = function(){
+    this.draw = function(gameCamera){
 
         // FOR EACH COLUMN IN THE TILE MAP ARRAY
         for(let i = 0; i < this.w; i++) {
@@ -89,7 +89,7 @@ function TileMap(w,h){
                 if (color===1) {
                     noStroke();
                     fill(255 * color);
-                    rect(TILE_WIDTH * i, TILE_HEIGHT * j, TILE_WIDTH + 1, TILE_HEIGHT + 1);
+                    rect(TILE_WIDTH * i - gameCamera.x + width/2, TILE_HEIGHT * j - gameCamera.y + height/2, TILE_WIDTH + 1, TILE_HEIGHT + 1);
                 }
 
             }

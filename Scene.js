@@ -4,11 +4,11 @@
 
 function Scene(){
 
-    this.tileMap = new TileMap(30,30);
+    this.tileMap = new TileMap(100,100);
     this.objectCollection  = new ObjectCollection(this.tileMap);
     this.player = this.objectCollection.createObject("Player",TILE_WIDTH/2,TILE_HEIGHT/2);
 
-    this.camera = new Camera(new Coordinate(0,0), 1);
+    this.gameCamera = new GameCamera(new Coordinate(TILE_WIDTH/2,TILE_HEIGHT/2), 1);
 
     let GameObjects = [];
     let time = 0;
@@ -19,10 +19,11 @@ function Scene(){
 
         // UPDATE OBJECTS
         this.objectCollection.update();
+        this.gameCamera.setPosition(new Coordinate(this.player.x, this.player.y));
 
         // DRAW OBJECTS
-        this.tileMap.draw();
-        this.objectCollection.draw();
+        this.tileMap.draw(this.gameCamera);
+        this.objectCollection.draw(this.gameCamera);
 
     };
 
