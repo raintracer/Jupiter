@@ -239,6 +239,22 @@ function GameObject(objectCollection, tilemap, id, x, y){
         fill(255,0,0);
         rect(this.leftEdge() - gameCamera.x + width/2, this.topEdge() - gameCamera.y + height/2, this.w, this.h);
 
+        // VISUALIZE THE GAM EOBJECTS PATH
+        if(SHOW_PATHING){
+
+            console.log("DRAW PATH");
+            // FOR EACH COORDINATE IN THE PATH
+            for (let i = 1; i < this.path.PathArray.length; i++) {
+
+                // DRAW A LINE TO THE PREVIOUS COORDINATE
+                stroke(255);
+                line(this.path.PathArray[i].x*TILE_WIDTH+TILE_WIDTH/2- gameCamera.x + width/2, this.path.PathArray[i].y*TILE_HEIGHT+TILE_HEIGHT/2 - gameCamera.y + height/2, this.path.PathArray[i-1].x*TILE_WIDTH+TILE_WIDTH/2- gameCamera.x + width/2, this.path.PathArray[i-1].y*TILE_HEIGHT+TILE_HEIGHT/2 - gameCamera.y + height/2);
+
+            }
+
+        }
+
+
     };
 
     this.leftEdge = function(){

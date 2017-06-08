@@ -16,7 +16,7 @@ function Coordinate(x, y){
 
     this.matchesCoordinate = function(TargetCoordinate){
 
-        return ((TargetCoordinate.x = this.x) && (TargetCoordinate.y = this.y));
+        return ((TargetCoordinate.x === this.x) && (TargetCoordinate.y === this.y));
 
     };
 

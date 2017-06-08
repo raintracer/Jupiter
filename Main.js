@@ -5,8 +5,9 @@ let sprite;
 
 // GLOBAL CONSTANTS
 const STAGE_WIDTH = 600, STAGE_HEIGHT = 600;
-const TILE_WIDTH = 20, TILE_HEIGHT = 20;
+const TILE_WIDTH = 30, TILE_HEIGHT = 30;
 const FRICTION = .9,  STATIC_FRICTION = .2;
+const SHOW_PATHING = true;
 
 // TILE DATA
 let TILE_GRAPHIC_ARRAY = [];
@@ -60,7 +61,7 @@ function setup(){
 function draw(){
 
     // background(0,0,0,100);
-    background(0);
+    background(40,40,40);
     game.update();
 
     // TESTING A SINGLE FRAME

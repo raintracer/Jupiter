@@ -78,38 +78,47 @@ function TileMap(w,h){
     this.draw = function(gameCamera){
 
         // DETERMINE WHICH TILES ARE VISIBLE ON THE STAGE
-        let screenLeftTile = pixelsToTileX(gameCamera.screenLeftEdge());
-        let screenRightTile = pixelsToTileX(gameCamera.screenRightEdge());
-        let screenTopTile = pixelsToTileY(gameCamera.screenTopEdge());
-        let screenBottomTile = pixelsToTileY(gameCamera.screenBottomEdge());
+        let screenLeftTileIndex = pixelsToTileX(gameCamera.screenLeftEdge());
+        let screenRightTileIndex = pixelsToTileX(gameCamera.screenRightEdge());
+        let screenTopTileIndex = pixelsToTileY(gameCamera.screenTopEdge());
+        let screenBottomTileIndex = pixelsToTileY(gameCamera.screenBottomEdge());
 
         // LIMIT THE TILES BASED ON THE TILEMAP SIZE
-        if (screenLeftTile < 0){
-            screenLeftTile = 0;
+        if (screenLeftTileIndex < 0){
+            screenLeftTileIndex = 0;
         }
-        if (screenTopTile < 0){
-            screenTopTile = 0;
+        if (screenTopTileIndex < 0){
+            screenTopTileIndex = 0;
         }
-        if (screenRightTile > this.w){
-            screenRightTile = this.w;
+        if (screenRightTileIndex > this.w-1){
+            screenRightTileIndex = this.w-1;
         }
-        if (screenBottomTile > this.h){
-            screenBottomTile = this.h;
+        if (screenBottomTileIndex > this.h-1){
+            screenBottomTileIndex = this.h-1;
         }
 
         // FOR EACH VISIBLE COLUMN IN THE TILE MAP ARRAY
-        for(let i = screenLeftTile; i < screenRightTile; i++) {
+        for(let i = screenLeftTileIndex; i <= screenRightTileIndex; i++) {
 
             // FOR EACH VISIBLE ROW IN THE TILE MAP ARRAY
-            for(let j = screenTopTile; j < screenBottomTile; j++) {
+            for(let j = screenTopTileIndex; j <= screenBottomTileIndex; j++) {
 
                 let tileID = this.TileArray[i][j];
-                if (tileID > 0) {
+                // if (tileID > 0) {
 
-                    // DRAW THE TILE
+                // DRAW THE TILE
+                try {
                     image(TILE_GRAPHIC_ARRAY[tileID], TILE_WIDTH * i - gameCamera.x + width / 2, TILE_HEIGHT * j - gameCamera.y + height / 2);
 
+                    // // DRAW COORDINATE OVER TILE WITH TEXT
+                    // fill(255);
+                    // text(i + ", " + j, TILE_WIDTH * i - gameCamera.x + width / 2, TILE_HEIGHT * j - gameCamera.y + height / 2, TILE_WIDTH, TILE_HEIGHT);
+
                 }
+                catch(err) {
+                    console.log(err.message);
+                }
+
             }
 
         }
@@ -145,6 +154,14 @@ function TileMap(w,h){
     };
 
     this.tileID = function(tileX, tileY){
+        if (tileX < 0){
+            tileX = 0;
+            console.log("Warning: A negative tileX value was passed to Tilemap->tileID. Corrected to 0.");
+        }
+        if (tileY < 0){
+            tileY = 0;
+            console.log("Warning: A negative tileY value was passed to Tilemap->tileID. Corrected to 0.");
+        }
         return this.TileArray[tileX][tileY];
     };
 

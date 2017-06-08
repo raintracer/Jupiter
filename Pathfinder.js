@@ -24,6 +24,100 @@ function Pathfinder(parent, tilemap){
             BlockColumn = [];
         }
 
+        // CHECK FOR A STRAIGHT LINE PATH
+
+        // DEFINE A STRAIGHT LINE
+        let m = (DesiredPosition.y - CurrentPosition.y) / (DesiredPosition.x - CurrentPosition.x);
+        let b = (DesiredPosition.y + TILE_HEIGHT/2) - m * (DesiredPosition.x + TILE_WIDTH/2);
+
+        // DEFINE A STRAIGHT LINE PATH OBJECT
+        let straightPath = new Path();
+        straightPath.addCoordinate(CurrentPosition.x, CurrentPosition.y);
+        let activeCoordinate = new Coordinate(0,0);
+        let disabledDirection;
+        let x;
+        let y;
+        let xDir;
+        let yDir;
+
+        if (CurrentPosition.x < DesiredPosition.x){
+            xDir = 1;
+        } else{
+            xDir = -1;
+        }
+
+        if (CurrentPosition.y < DesiredPosition.y){
+            yDir = 1;
+        } else{
+            yDir = -1;
+        }
+
+        while(1) {
+
+            // CHECK EVERY SIDE OF THE ACTIVE COORDINATE TILE FOR LINE INTERSECTION
+            activeCoordinate.copyCoordinate(straightPath.endCoordinate());
+
+            // CHECK LEFT SIDE
+            if (xDir === -1) {
+                x = activeCoordinate.x * TILE_WIDTH;
+                y = m * x + b;
+                if (y >= (activeCoordinate.y * TILE_HEIGHT) && y <= ((activeCoordinate.y + 1) * TILE_HEIGHT)) {
+                    // INTERSECTION AT LEFT EDGE
+                    straightPath.addCoordinate(activeCoordinate.x - 1, activeCoordinate.y);
+                }
+            }
+
+            // CHECK RIGHT SIDE
+            if (xDir === 1) {
+                x = (activeCoordinate.x + 1) * TILE_WIDTH;
+                y = m * x + b;
+                if (y >= (activeCoordinate.y * TILE_HEIGHT) && y <= ((activeCoordinate.y + 1) * TILE_HEIGHT)) {
+                    // INTERSECTION AT RIGHT EDGE
+                    straightPath.addCoordinate(activeCoordinate.x + 1, activeCoordinate.y);
+                }
+            }
+
+            // CHECK TOP SIDE
+            if (yDir === -1) {
+                y = (activeCoordinate.y) * TILE_WIDTH;
+                x = (y - b) / m;
+                if (x >= (activeCoordinate.x * TILE_WIDTH) && x <= ((activeCoordinate.x + 1) * TILE_WIDTH)) {
+                    // INTERSECTION AT TOP EDGE
+                    straightPath.addCoordinate(activeCoordinate.x, activeCoordinate.y - 1);
+                }
+            }
+
+            // CHECK BOTTOM SIDE
+            if (yDir === 1) {
+                y = (activeCoordinate.y + 1) * TILE_WIDTH;
+                x = (y - b) / m;
+                if (x >= (activeCoordinate.x * TILE_WIDTH) && x <= ((activeCoordinate.x + 1) * TILE_WIDTH)) {
+                    // INTERSECTION AT BOTTOM EDGE
+                    straightPath.addCoordinate(activeCoordinate.x, activeCoordinate.y + 1);
+                }
+            }
+
+            console.log(activeCoordinate);
+
+            // IF THE NEXT COORDINATE IS BLOCKED, ABORT THE OPERATION
+            if (tilemap.isTileBlockedAtCoordinate(straightPath.endCoordinate().x, straightPath.endCoordinate().y)){
+                break;
+            }
+
+            // IF THE DESTINATION HAS BEEN FOUND
+            if(straightPath.endCoordinate().x === DesiredPosition.x && straightPath.endCoordinate().y === DesiredPosition.y){
+                return straightPath;
+            }
+
+            // IF THE NEW COORDINATE IS THE SAME AS THE LAST
+            if (straightPath.endCoordinate().matchesCoordinate(activeCoordinate)){
+                break;
+            }
+
+        }
+
+        // IF A STRAIGHT PATH ISN'T FOUND, USE THE SNAKE PATH SEARCH
+
         // INITIATE THE SEARCH ARRAY
         SearchArray.push(new Path());
 
