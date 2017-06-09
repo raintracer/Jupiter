@@ -27,21 +27,40 @@ function Scene(){
 
     };
 
-    this.mouseClicked = function(mouseX, mouseY){
+    this.mouseClicked = function(absMouseX, absMouseY){
+
+        // INTERPRET THE COORDINATES THROUGH THE CAMERA POSITION
+        let stageMouseCoordinate = new Coordinate(absMouseX, absMouseY);
+
+        let sceneMouseCoordinate = new Coordinate(0,0);
+        sceneMouseCoordinate.copyCoordinate(this.gameCamera.stageToScenePosition(stageMouseCoordinate));
 
         // CREATE A NEW OBJECT IN A RANDOM OPEN TILE
-        let RandomCoordinate = new Coordinate(0,0);
-        RandomCoordinate.copyCoordinate(this.tileMap.randomOpenTile());
+        // let RandomCoordinate = new Coordinate(0,0);
+        // RandomCoordinate.copyCoordinate(this.tileMap.randomOpenTile());
 
         // console.log(RandomCoordinate.x);
         // console.log(RandomCoordinate.y);
 
-        this.objectCollection.createObject("NPC", tileToPixelsX(RandomCoordinate.x), tileToPixelsY(RandomCoordinate.y));
+        // this.objectCollection.createObject("NPC", tileToPixelsX(RandomCoordinate.x), tileToPixelsY(RandomCoordinate.y));
 
-        // PATH ALL OBJECTS TO THE CLICKED TILE
-        let tileX = Math.floor(mouseX/TILE_WIDTH);
-        let tileY = Math.floor(mouseY/TILE_HEIGHT);
-        this.objectCollection.setPathTargets(new Coordinate(tileX, tileY))
+        if (PATH_DEBUG_MODE === "Select"){
+
+            // PATH ALL OBJECTS TO THE CLICKED TILE
+            let tileX = Math.floor(sceneMouseCoordinate.x/TILE_WIDTH);
+            let tileY = Math.floor(sceneMouseCoordinate.y/TILE_HEIGHT);
+            this.objectCollection.setPathTargets(new Coordinate(tileX, tileY))
+
+        } else if (PATH_DEBUG_MODE === "Random"){
+
+            // PATH ALL GAME OBJECTS TO A RANDOM OPEN TILE
+            let RandomCoordinate = new Coordinate(0,0);
+            for (let i in this.gameObjects){
+                RandomCoordinate.copyCoordinate(this.tileLayer.randomOpenTile());
+                this.objectCollection.gameObjects[i].setPathTarget(RandomCoordinate);
+            }
+
+        }
 
     }
 

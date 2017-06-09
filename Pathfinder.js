@@ -34,73 +34,118 @@ function Pathfinder(parent, tilemap){
         let straightPath = new Path();
         straightPath.addCoordinate(CurrentPosition.x, CurrentPosition.y);
         let activeCoordinate = new Coordinate(0,0);
-        let disabledDirection;
+        let candidateCoordinate = new Coordinate(0,0);
         let x;
         let y;
         let xDir;
         let yDir;
 
+        let MatchFound = false;
+
         if (CurrentPosition.x < DesiredPosition.x){
             xDir = 1;
-        } else{
+        } else if(CurrentPosition.x > DesiredPosition.x){
             xDir = -1;
+        } else{
+            xDir = 0;
         }
 
         if (CurrentPosition.y < DesiredPosition.y){
             yDir = 1;
-        } else{
+        } else if (CurrentPosition.y > DesiredPosition.y){
             yDir = -1;
+        }else{
+            yDir = 0;
         }
 
         while(1) {
+
+            MatchFound = false;
 
             // CHECK EVERY SIDE OF THE ACTIVE COORDINATE TILE FOR LINE INTERSECTION
             activeCoordinate.copyCoordinate(straightPath.endCoordinate());
 
             // CHECK LEFT SIDE
-            if (xDir === -1) {
+            if (xDir === -1 && !MatchFound) {
                 x = activeCoordinate.x * TILE_WIDTH;
                 y = m * x + b;
+
+                // IF INTERSECTION AT LEFT EDGE
                 if (y >= (activeCoordinate.y * TILE_HEIGHT) && y <= ((activeCoordinate.y + 1) * TILE_HEIGHT)) {
-                    // INTERSECTION AT LEFT EDGE
-                    straightPath.addCoordinate(activeCoordinate.x - 1, activeCoordinate.y);
+
+                    // IF THE INTERSECTING TILE IS BLOCKED, BREAK THE LOOP AND ABANDON A STRAIGHT LINE COURSE
+                    if (this.tilemap.isTileBlocked(activeCoordinate.x-1, activeCoordinate.y)){
+                        console.log("Tile Blocked:");
+                        console.log()
+                        // break;
+                    } else {
+                        MatchFound = true;
+                        straightPath.addCoordinate(activeCoordinate.x - 1, activeCoordinate.y);
+                    }
+
                 }
             }
 
             // CHECK RIGHT SIDE
-            if (xDir === 1) {
+            if (xDir === 1 && !MatchFound) {
                 x = (activeCoordinate.x + 1) * TILE_WIDTH;
                 y = m * x + b;
+
+                // IF INTERSECTION AT RIGHT EDGE
                 if (y >= (activeCoordinate.y * TILE_HEIGHT) && y <= ((activeCoordinate.y + 1) * TILE_HEIGHT)) {
-                    // INTERSECTION AT RIGHT EDGE
-                    straightPath.addCoordinate(activeCoordinate.x + 1, activeCoordinate.y);
+
+                    // IF THE INTERSECTING TILE IS BLOCKED, BREAK THE LOOP AND ABANDON A STRAIGHT LINE COURSE
+                    if (this.tilemap.isTileBlocked(activeCoordinate.x + 1, activeCoordinate.y)){
+                        // break;
+                    } else {
+                        MatchFound = true;
+                        straightPath.addCoordinate(activeCoordinate.x + 1, activeCoordinate.y);
+                    }
+
                 }
+
             }
 
             // CHECK TOP SIDE
-            if (yDir === -1) {
+            if (yDir === -1 && !MatchFound) {
                 y = (activeCoordinate.y) * TILE_WIDTH;
                 x = (y - b) / m;
+
+                // IF INTERSECTION AT TOP EDGE
                 if (x >= (activeCoordinate.x * TILE_WIDTH) && x <= ((activeCoordinate.x + 1) * TILE_WIDTH)) {
-                    // INTERSECTION AT TOP EDGE
-                    straightPath.addCoordinate(activeCoordinate.x, activeCoordinate.y - 1);
+
+                    // IF THE INTERSECTING TILE IS BLOCKED, BREAK THE LOOP AND ABANDON A STRAIGHT LINE COURSE
+                    if (this.tilemap.isTileBlocked(activeCoordinate.x, activeCoordinate.y - 1)){
+                        // break;
+                    } else {
+                        MatchFound = true;
+                        straightPath.addCoordinate(activeCoordinate.x, activeCoordinate.y - 1);
+                    }
+
                 }
             }
 
             // CHECK BOTTOM SIDE
-            if (yDir === 1) {
+            if (yDir === 1 && !MatchFound) {
                 y = (activeCoordinate.y + 1) * TILE_WIDTH;
                 x = (y - b) / m;
+
+                // IF INTERSECTION AT BOTTOM EDGE
                 if (x >= (activeCoordinate.x * TILE_WIDTH) && x <= ((activeCoordinate.x + 1) * TILE_WIDTH)) {
-                    // INTERSECTION AT BOTTOM EDGE
-                    straightPath.addCoordinate(activeCoordinate.x, activeCoordinate.y + 1);
+
+                    // IF THE INTERSECTING TILE IS BLOCKED, BREAK THE LOOP AND ABANDON A STRAIGHT LINE COURSE
+                    if (this.tilemap.isTileBlocked(activeCoordinate.x, activeCoordinate.y + 1)){
+                        // break;
+                    } else {
+                        MatchFound = true;
+                        straightPath.addCoordinate(activeCoordinate.x, activeCoordinate.y + 1);
+                    }
+
                 }
             }
 
-            console.log(activeCoordinate);
-
-            // IF THE NEXT COORDINATE IS BLOCKED, ABORT THE OPERATION
-            if (tilemap.isTileBlockedAtCoordinate(straightPath.endCoordinate().x, straightPath.endCoordinate().y)){
+            // ABANDON IF THERE WERE NO MATCHES
+            if(MatchFound === false){
                 break;
             }
 
@@ -109,10 +154,10 @@ function Pathfinder(parent, tilemap){
                 return straightPath;
             }
 
-            // IF THE NEW COORDINATE IS THE SAME AS THE LAST
-            if (straightPath.endCoordinate().matchesCoordinate(activeCoordinate)){
-                break;
-            }
+            // // IF THE NEW COORDINATE IS THE SAME AS THE LAST
+            // if (straightPath.endCoordinate().matchesCoordinate(activeCoordinate)){
+            //     break;
+            // }
 
         }
 

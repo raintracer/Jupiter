@@ -33,4 +33,13 @@ function GameCamera(coordinate, zoom){
         return this.y + height/2;
     };
 
+    this.sceneToStagePosition = function(SceneCoordinate){
+        return new Coordinate(SceneCoordinate.x - this.x + width/2, SceneCoordinate.y - this.y + width/2);
+    };
+
+    this.stageToScenePosition = function(StageCoordinate){
+        return new Coordinate(StageCoordinate.x + this.x - width/2, StageCoordinate.y + this.y - width/2);
+    };
+
+
 }

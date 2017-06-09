@@ -242,7 +242,6 @@ function GameObject(objectCollection, tilemap, id, x, y){
         // VISUALIZE THE GAM EOBJECTS PATH
         if(SHOW_PATHING){
 
-            console.log("DRAW PATH");
             // FOR EACH COORDINATE IN THE PATH
             for (let i = 1; i < this.path.PathArray.length; i++) {
 

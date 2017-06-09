@@ -82,12 +82,8 @@ function ObjectCollection(tileLayer){
     };
 
     this.setPathTargets = function(TargetCoordinate){
-
-        // CREATE A NEW OBJECT IN A RANDOM OPEN TILE
-        let RandomCoordinate = new Coordinate(0,0);
-        for (i in this.gameObjects){
-            RandomCoordinate.copyCoordinate(this.tileLayer.randomOpenTile());
-            this.gameObjects[i].setPathTarget(RandomCoordinate);
+        for (let i in this.gameObjects){
+            this.gameObjects[i].setPathTarget(TargetCoordinate);
         }
     }
 
