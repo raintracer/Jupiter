@@ -76,7 +76,7 @@ function GameObject(objectCollection, tilemap, id, x, y){
             }
 
             // END THE PATHING IF THE OBJECT HAS ARRIVED TO ITS TARGET DESTINATION
-            if (this.path.PathArray.length === 1){
+            if (this.path.PathArray.length === 0){
                 this.pathing = false;
             }
 
@@ -239,8 +239,8 @@ function GameObject(objectCollection, tilemap, id, x, y){
         fill(255,0,0);
         rect(this.leftEdge() - gameCamera.x + width/2, this.topEdge() - gameCamera.y + height/2, this.w, this.h);
 
-        // VISUALIZE THE GAM EOBJECTS PATH
-        if(SHOW_PATHING){
+        // VISUALIZE THE GAME OBJECTS PATH
+        if(SHOW_PATHING && this.pathing){
 
             // FOR EACH COORDINATE IN THE PATH
             for (let i = 1; i < this.path.PathArray.length; i++) {
@@ -250,6 +250,10 @@ function GameObject(objectCollection, tilemap, id, x, y){
                 line(this.path.PathArray[i].x*TILE_WIDTH+TILE_WIDTH/2- gameCamera.x + width/2, this.path.PathArray[i].y*TILE_HEIGHT+TILE_HEIGHT/2 - gameCamera.y + height/2, this.path.PathArray[i-1].x*TILE_WIDTH+TILE_WIDTH/2- gameCamera.x + width/2, this.path.PathArray[i-1].y*TILE_HEIGHT+TILE_HEIGHT/2 - gameCamera.y + height/2);
 
             }
+
+            // DRAW A LINE TO FROM THE FIRST PATH TARGET TO THE GAME OBJECT
+            stroke(255);
+            line(this.x - gameCamera.x + width/2, this.y - gameCamera.y + height/2, this.path.PathArray[0].x*TILE_WIDTH+TILE_WIDTH/2- gameCamera.x + width/2, this.path.PathArray[0].y*TILE_HEIGHT+TILE_HEIGHT/2 - gameCamera.y + height/2);
 
         }
 
