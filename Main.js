@@ -8,7 +8,7 @@ const STAGE_WIDTH = 600, STAGE_HEIGHT = 600;
 const TILE_WIDTH = 30, TILE_HEIGHT = 30;
 const FRICTION = .9,  STATIC_FRICTION = .2;
 const SHOW_PATHING = true;
-const PATH_DEBUG_MODE = "Select";
+const PATH_DEBUG_MODE = "Random";
 
 // TILE DATA
 let TILE_GRAPHIC_ARRAY = [];

@@ -29,8 +29,8 @@ function Pathfinder(parent, tilemap){
         // DEFINE A STRAIGHT LINE
         let m = (DesiredPosition.y - CurrentPosition.y) / (DesiredPosition.x - CurrentPosition.x);
         let b = (DesiredPosition.y * TILE_HEIGHT + TILE_HEIGHT / 2) - m * (DesiredPosition.x * TILE_WIDTH + TILE_WIDTH / 2);
-        console.log("m: " + m);
-        console.log("b: " + b);
+        // console.log("m: " + m);
+        // console.log("b: " + b);
 
         // DEFINE A STRAIGHT LINE PATH OBJECT
         let straightPath = new Path();
@@ -75,7 +75,7 @@ function Pathfinder(parent, tilemap){
 
                     // IF THE INTERSECTING TILE IS BLOCKED, BREAK THE LOOP AND ABANDON A STRAIGHT LINE COURSE
                     if (this.tilemap.isTileBlocked(activeCoordinate.x-1, activeCoordinate.y)){
-                        console.log("Tile Blocked: " + activeCoordinate.x-1 + ", " + activeCoordinate.y);
+                        // console.log("Tile Blocked: " + activeCoordinate.x-1 + ", " + activeCoordinate.y);
                         // break;
                     } else {
                         MatchFound = true;
@@ -95,7 +95,7 @@ function Pathfinder(parent, tilemap){
 
                     // IF THE INTERSECTING TILE IS BLOCKED, BREAK THE LOOP AND ABANDON A STRAIGHT LINE COURSE
                     if (this.tilemap.isTileBlocked(activeCoordinate.x + 1, activeCoordinate.y)){
-                        console.log("Tile Blocked: " + activeCoordinate.x+1 + ", " + activeCoordinate.y);
+                        // console.log("Tile Blocked: " + activeCoordinate.x+1 + ", " + activeCoordinate.y);
                         // break;
                     } else {
                         MatchFound = true;
@@ -116,7 +116,7 @@ function Pathfinder(parent, tilemap){
 
                     // IF THE INTERSECTING TILE IS BLOCKED, BREAK THE LOOP AND ABANDON A STRAIGHT LINE COURSE
                     if (this.tilemap.isTileBlocked(activeCoordinate.x, activeCoordinate.y - 1)){
-                        console.log("Tile Blocked: " + activeCoordinate.x + ", " + activeCoordinate.y-1);
+                        // console.log("Tile Blocked: " + activeCoordinate.x + ", " + activeCoordinate.y-1);
                         // break;
                     } else {
                         MatchFound = true;
@@ -136,7 +136,7 @@ function Pathfinder(parent, tilemap){
 
                     // IF THE INTERSECTING TILE IS BLOCKED, BREAK THE LOOP AND ABANDON A STRAIGHT LINE COURSE
                     if (this.tilemap.isTileBlocked(activeCoordinate.x, activeCoordinate.y + 1)){
-                        console.log("Tile Blocked: " + activeCoordinate.x + ", " + activeCoordinate.y+1);
+                        // console.log("Tile Blocked: " + activeCoordinate.x + ", " + activeCoordinate.y+1);
                         // break;
                     } else {
                         MatchFound = true;
@@ -148,7 +148,7 @@ function Pathfinder(parent, tilemap){
 
             // ABANDON IF THERE WERE NO MATCHES
             if(MatchFound === false){
-                console.log("No Matches found around: " + activeCoordinate.x + ", " + activeCoordinate.y);
+                // console.log("No Matches found around: " + activeCoordinate.x + ", " + activeCoordinate.y);
                 break;
             }
 
@@ -170,7 +170,7 @@ function Pathfinder(parent, tilemap){
         }
 
         // IF A STRAIGHT PATH ISN'T FOUND, USE THE SNAKE PATH SEARCH
-        console.log("Straight Path abandoned.");
+        // console.log("Straight Path abandoned.");
 
         // INITIATE THE SEARCH ARRAY
         SearchArray.push(new Path());

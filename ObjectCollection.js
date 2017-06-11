@@ -87,4 +87,12 @@ function ObjectCollection(tileLayer){
         }
     }
 
+    this.setRandomPathTargets = function(){
+        let RandomCoordinate = new Coordinate(0,0);
+        for (let i=0; i<this.gameObjects.length; i++){
+            RandomCoordinate.copyCoordinate(this.tileLayer.randomOpenTile());
+            this.gameObjects[i].setPathTarget(RandomCoordinate);
+        }
+    }
+
 }

@@ -36,13 +36,13 @@ function Scene(){
         sceneMouseCoordinate.copyCoordinate(this.gameCamera.stageToScenePosition(stageMouseCoordinate));
 
         // CREATE A NEW OBJECT IN A RANDOM OPEN TILE
-        // let RandomCoordinate = new Coordinate(0,0);
-        // RandomCoordinate.copyCoordinate(this.tileMap.randomOpenTile());
+        let RandomCoordinate = new Coordinate(0,0);
+        RandomCoordinate.copyCoordinate(this.tileMap.randomOpenTile());
 
         // console.log(RandomCoordinate.x);
         // console.log(RandomCoordinate.y);
 
-        // this.objectCollection.createObject("NPC", tileToPixelsX(RandomCoordinate.x), tileToPixelsY(RandomCoordinate.y));
+        this.objectCollection.createObject("NPC", tileToPixelsX(RandomCoordinate.x), tileToPixelsY(RandomCoordinate.y));
 
         if (PATH_DEBUG_MODE === "Select"){
 
@@ -54,11 +54,7 @@ function Scene(){
         } else if (PATH_DEBUG_MODE === "Random"){
 
             // PATH ALL GAME OBJECTS TO A RANDOM OPEN TILE
-            let RandomCoordinate = new Coordinate(0,0);
-            for (let i in this.gameObjects){
-                RandomCoordinate.copyCoordinate(this.tileLayer.randomOpenTile());
-                this.objectCollection.gameObjects[i].setPathTarget(RandomCoordinate);
-            }
+            this.objectCollection.setRandomPathTargets();
 
         }
 

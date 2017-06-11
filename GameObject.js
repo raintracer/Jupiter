@@ -70,7 +70,7 @@ function GameObject(objectCollection, tilemap, id, x, y){
             // SHIFT THE PATH IF THE OBJECT HAS ARRIVED
             if (this.getTilePosition().x === this.path.startCoordinate().x && this.getTilePosition().y === this.path.startCoordinate().y){
                 // console.log("Shift coordinate");
-                if (this.path.PathArray.length>1) {
+                if (this.path.PathArray.length>0) {
                     this.path.shiftCoordinate();
                 }
             }
